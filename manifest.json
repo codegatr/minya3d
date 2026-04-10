@@ -1,10 +1,10 @@
 {
-  "version": "1.0.11",
+  "version": "1.0.12",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "feat: siparis-detay WhatsApp+email, odeme email bildirimi, main.js v1.0.10",
+  "changelog": "feat: 005 migration - 12 kategori + 125 PLA+ urun otomatik ekleme",
   "files": [
     "manifest.json",
     "index.php",
@@ -69,6 +69,7 @@
     "installer/index.php",
     "installer/schema.sql",
     "404.php",
-    "config.php"
+    "config.php",
+    "migrations/005_urun_katalogu.sql"
   ]
 }
