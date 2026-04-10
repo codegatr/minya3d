@@ -577,3 +577,17 @@ textarea.form-control { min-height: 110px; resize: vertical; }
   .hero-actions { flex-direction: column; }
   .hero-stats { flex-wrap: wrap; gap: 1.25rem; }
 }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.revealed { opacity: 1; transform: none; transition: none; }
+}

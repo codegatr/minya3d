@@ -92,15 +92,30 @@
   });
 
   // ── Scroll reveal animasyonu ────────────────────────────────────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('revealed');
-        observer.unobserve(e.target);
-      }
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    // Fallback: hepsini hemen goster
+    revealEls.forEach(el => el.classList.add('revealed'));
+  }
+
+  // Sayfa yuklendiginde viewport'ta gorunen elemanları hemen goster
+  setTimeout(() => {
+    revealEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('revealed');
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }, 100);
 
   // ── Ürün görsel büyütme ─────────────────────────────────────────────────────
   document.querySelectorAll('.thumb-btn').forEach(btn => {
