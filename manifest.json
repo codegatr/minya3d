@@ -1,10 +1,10 @@
 {
-  "version": "1.0.19",
+  "version": "1.0.20",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "fix: reveal animasyonu CSS eksikti - sayfa icerikleri bos gorunuyordu",
+  "changelog": "fix: hero z-index + JS const observer çift tanım",
   "files": [
     "manifest.json",
     "index.php",
