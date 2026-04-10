@@ -1,7 +1,9 @@
 <?php
 $q         = trim($_GET['q'] ?? '');
-$pageTitle = $q ? "\"$q\" – Arama Sonuçları" : 'Arama';
-require_once __DIR__ . '/includes/header.php';
+$pageTitle = $q ? "\"$q\" – Arama Sonuçları" : 'Ürün Arama';
+$pageDesc  = $q
+    ? "\"$q\" için Minya 3D 3D baskı ürünleri arama sonuçları. PLA+ materyal, Bambu Lab A1 Combo kalitesi."
+    : 'Minya 3D ürün kataloğunda arama yapın. 130+ PLA+ 3D baskı ürünü arasında ihtiyacınızı bulun.';require_once __DIR__ . '/includes/header.php';
 
 $urunler = [];
 $total   = 0;

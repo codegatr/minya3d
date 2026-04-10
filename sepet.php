@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Sepetim';
+$pageDesc  = '3D baski siparisini tamamla. Sepetimdeki urunleri incele ve guvenli odeme yap.';
 require_once __DIR__ . '/includes/header.php';
 
 $sepet    = $_SESSION['sepet'] ?? [];

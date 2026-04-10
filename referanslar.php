@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Referanslar';
+$pageDesc  = 'Minya 3D musterileri: Muhendis, mimar, ogrenci ve isletmelerden gercek deneyimler.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>

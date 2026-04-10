@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Kategoriler';
+$pageDesc  = 'Minya 3D urun kategorileri: Ev, ofis, sanat, oyun, egitim, teknoloji. Tum kategorilere goz atin.';
 require_once __DIR__ . '/includes/header.php';
 $kategoriler = DB::all("SELECT k.*, (SELECT COUNT(*) FROM mn_urunler WHERE kategori_id=k.id AND aktif=1) AS adet FROM mn_kategoriler k WHERE k.aktif=1 ORDER BY k.sira, k.id");
 ?>

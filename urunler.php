@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Ürünler';
+$pageDesc  = 'Minya 3D urun katalogu: Ev, ofis, dekorasyon, oyun, egitim. PLA+ materyal, Bambu Lab A1 Combo kalitesi. Turkiye hizli kargo.';
 require_once __DIR__ . '/includes/header.php';
 
 $page    = max(1, (int)($_GET['sayfa'] ?? 1));

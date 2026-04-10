@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Hakkımızda';
+$pageDesc  = 'Minya 3D: Konya merkezli 3D baski hizmet platformu. Bambu Lab A1 Combo ile PLA+ uretim. Turkiye genelinde kargo.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>

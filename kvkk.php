@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'KVKK & Gizlilik Politikası';
+$pageDesc  = 'Minya 3D KVKK aydinlatma metni ve gizlilik politikasi.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>

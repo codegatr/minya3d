@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Ödeme';
+$pageDesc  = 'Guvenli odeme ile 3D baski siparisini tamamla. SSL sifreli, 3D Secure odeme.';
 require_once __DIR__ . '/includes/header.php';
 
 $sepet   = $_SESSION['sepet'] ?? [];

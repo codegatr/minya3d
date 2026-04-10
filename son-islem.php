@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Son İşlem Hizmetleri';
+$pageDesc  = '3D baski sonrasi boyama, taslama, asetona daldirma ve kaplama. Profesyonel yuzey bitisi.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>

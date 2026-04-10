@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Toplu Sipariş';
+$pageDesc  = '50 adet ve uzeri toplu 3D baski siparisi. Kurumsal fiyat, oncelikli uretim, e-fatura.';
 require_once __DIR__ . '/includes/header.php';
 $ok = $hata = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {

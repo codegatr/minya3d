@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Siparişiniz Alındı';
+$pageDesc  = 'Siparisiz basariyla olusturuldu. Minya 3D ile 3D baski siparisiz en kisa surede hazirlanacak.';
 require_once __DIR__ . '/includes/header.php';
 
 $sid     = (int)($_GET['siparis'] ?? 0);

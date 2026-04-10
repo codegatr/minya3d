@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Materyaller';
+$pageDesc  = 'Minya 3D materyalleri: PLA+, ABS, PETG, TPU, Recine. Projenize uygun materyal secin.';
 require_once __DIR__ . '/includes/header.php';
 $materyaller = DB::all("SELECT * FROM mn_materyaller WHERE aktif=1 ORDER BY baslik");
 $bilgi = [

@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Danışmanlık';
+$pageDesc  = '3D baski materyal secimi, tasarim optimizasyonu ve proje danismanligi. Ucretsiz ilk gorusme.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>

@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Özel Sipariş';
+$pageDesc  = 'STL, OBJ veya 3MF dosyani gonder; PLA+ 3D baski fiyat teklifi al. 24 saat icerisinde geri donus.';
 require_once __DIR__ . '/includes/header.php';
 $ok = $hata = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {

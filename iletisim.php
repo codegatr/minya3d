@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'İletişim';
+$pageDesc  = 'Minya 3D ile iletisime gecin. Siparis, ozel uretim ve destek icin bize ulasin. Konya, Turkiye.';
 require_once __DIR__ . '/includes/header.php';
 $ok = $hata = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {

@@ -9,11 +9,14 @@ ServerSignature Off
     # RewriteCond %{HTTPS} off
     # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # ── SEO: İl sayfaları ({il-slug}-3d-baski) ──────────────────────────
-    RewriteRule ^([a-z]+)-3d-baski/?$ sehir.php?sehir=$1 [L,QSA]
+    # ── SEO: Türkiye genel sayfası ──────────────────────────────────────
+    RewriteRule ^turkiye-3d-baski/?$  turkiye-3d-baski.php [L,QSA]
 
     # ── SEO: Konya ilçe sayfaları (konya-{ilce}-3d-baski) ───────────────
     RewriteRule ^konya-([a-z]+)-3d-baski/?$ ilce.php?sehir_ilce=konya-$1 [L,QSA]
+
+    # ── SEO: İl sayfaları ({il-slug}-3d-baski) ──────────────────────────
+    RewriteRule ^([a-z]+)-3d-baski/?$ sehir.php?sehir=$1 [L,QSA]
 
     # ── Ürün detay: /urun/slug ───────────────────────────────────────────
     RewriteRule ^urun/([a-z0-9-]+)/?$  urun.php?slug=$1 [L,QSA]

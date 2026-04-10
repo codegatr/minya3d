@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Blog';
+$pageDesc  = '3D baski materyal rehberleri, PLA+ ipuclari, Bambu Lab kullanim kilavuzlari ve sektor haberleri.';
 require_once __DIR__ . '/includes/header.php';
 
 // Blog tablosu henüz oluşturulmamış olabilir, güvenli kontrol

@@ -12,6 +12,7 @@ $urls = [];
 
 // ── Statik sayfalar ───────────────────────────────────────────────────────────
 $statik = [
+    ['/turkiye-3d-baski',   '0.9',  'monthly', $today],
     ['/',               '1.0',  'daily',   $today],
     ['/urunler.php',    '0.9',  'daily',   $today],
     ['/kategoriler.php','0.8',  'weekly',  $today],

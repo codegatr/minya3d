@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Dosya Yükle & Fiyat Al';
+$pageDesc  = 'STL veya 3MF dosyani yukle, 24 saat icerisinde ucretsiz 3D baski fiyat teklifi al.';
 require_once __DIR__ . '/includes/header.php';
 ?>
 <div style="margin-top:70px"></div>
