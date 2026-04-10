@@ -199,6 +199,14 @@ $log        = [];
 $updateDone = false;
 $curVer     = APP_VERSION;
 
+// Redirect sonrası session'dan log al
+if (isset($_SESSION['update_log']) && ($_GET['sonuc'] ?? '') === 'ok') {
+    $log        = $_SESSION['update_log'];
+    $updateDone = (bool)($_SESSION['update_done'] ?? false);
+    $updateVer  = $_SESSION['update_ver'] ?? '';
+    unset($_SESSION['update_log'], $_SESSION['update_done'], $_SESSION['update_ver']);
+}
+
 try { $release = mn_release(); if (!$release) $apiErr = 'API yanıt vermedi veya token eksik.'; }
 catch (Throwable $e) { $apiErr = $e->getMessage(); }
 
@@ -220,8 +228,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {
         }
         if (!$zipUrl) $zipUrl = $release['zipball_url'] ?? '';
         if ($zipUrl) {
-            $log       = array_merge($log, mn_update($zipUrl, $release['tag_name']));
+            $updateLog  = mn_update($zipUrl, $release['tag_name']);
+            $log        = array_merge($log, $updateLog);
             $updateDone = true;
+
+            // Başarılı mı kontrol et
+            $hasErr = !empty(array_filter($updateLog, fn($l) => $l[0] === 'err'));
+
+            if (!$hasErr) {
+                // Session'a log kaydet, redirect ile temiz sayfa yükle
+                $_SESSION['update_log']  = $log;
+                $_SESSION['update_done'] = true;
+                $_SESSION['update_ver']  = $release['tag_name'];
+                redirect('/admin/guncelle.php?sonuc=ok');
+            }
         } else {
             $log[] = ['err', 'ZIP URL bulunamadı.'];
         }
@@ -275,6 +295,26 @@ $err = getFlash('err');
 
 <?php if ($ok): ?><div class="alert alert-success">✓ <?= e($ok) ?></div><?php endif; ?>
 <?php if ($err): ?><div class="alert alert-error">✗ <?= e($err) ?></div><?php endif; ?>
+
+<?php if ($updateDone && isset($updateVer)): ?>
+<div style="background:rgba(34,197,94,.12);border:2px solid rgba(34,197,94,.4);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.25rem">
+  <div style="font-size:2.5rem">✅</div>
+  <div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;color:#4ade80;margin-bottom:.3rem">
+      Güncelleme Başarıyla Tamamlandı!
+    </div>
+    <div style="color:var(--muted);font-size:.9rem">
+      <strong style="color:var(--text)"><?= e($updateVer) ?></strong> sürümü kuruldu.
+      Yeni özellikler ve düzeltmeler aktif.
+    </div>
+    <div style="margin-top:.75rem;display:flex;gap:.75rem;flex-wrap:wrap">
+      <a href="/admin/" class="btn btn-outline btn-sm">📊 Dashboard'a Git</a>
+      <a href="/admin/migrations.php" class="btn btn-outline btn-sm">🗄️ Migrations Kontrol Et</a>
+      <a href="/" target="_blank" class="btn btn-outline btn-sm">🌐 Siteyi Görüntüle</a>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
 
 <div style="max-width:780px">
 
@@ -401,10 +441,6 @@ $err = getFlash('err');
         echo "<span class='$cls'>$pfx" . e($msg) . "</span>\n";
     }
   ?></div>
-  <?php if ($updateDone): ?>
-  <div class="alert alert-success" style="margin-top:1rem">✓ Güncelleme tamamlandı!</div>
-  <a href="/admin/guncelle.php" class="btn btn-blue" style="margin-top:.5rem">🔄 Yenile</a>
-  <?php endif; ?>
 </div>
 <?php endif; ?>
 

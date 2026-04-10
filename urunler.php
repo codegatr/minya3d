@@ -39,11 +39,14 @@ $sort = match($_GET['siralama'] ?? '') {
 $whereStr = implode(' AND ', $where);
 $total    = (int)DB::row("SELECT COUNT(*) AS c FROM mn_urunler u WHERE $whereStr", $params)['c'];
 $pages    = (int)ceil($total / $perPage);
+
+// LIMIT ve OFFSET integer olarak SQL'e gömülür (PDO bind ile LIMIT sorunu yaşanmaması için)
+$limitSql = "LIMIT " . (int)$perPage . " OFFSET " . (int)$offset;
 $urunler  = DB::all(
     "SELECT u.*, k.baslik AS kat_baslik FROM mn_urunler u
      LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id
-     WHERE $whereStr ORDER BY $sort LIMIT $perPage OFFSET $offset",
-    [...$params, $perPage, $offset]
+     WHERE $whereStr ORDER BY $sort $limitSql",
+    $params
 );
 
 $kategoriler  = DB::all("SELECT id, baslik, slug FROM mn_kategoriler WHERE aktif=1 ORDER BY sira");

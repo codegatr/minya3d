@@ -1,10 +1,10 @@
 {
-  "version": "1.0.12",
+  "version": "1.0.13",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "feat: 005 migration - 12 kategori + 125 PLA+ urun otomatik ekleme",
+  "changelog": "fix: urunler.php LIMIT/OFFSET PDO bug, guncelle.php redirect+flash bildirim",
   "files": [
     "manifest.json",
     "index.php",
