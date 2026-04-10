@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /installer/
+Disallow: /tmp/
+Disallow: /backups/
+Disallow: /api/
+Disallow: /config.php
+Disallow: /migrations/
+
+# Sitemap
+Sitemap: https://minya3d.com/sitemap.php
+
+# Crawl hızı (isteğe bağlı)
+Crawl-delay: 1

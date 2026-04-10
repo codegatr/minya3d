@@ -1,10 +1,10 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "Migration sistemi eklendi",
+  "changelog": "SEO: şehir/ilçe landing, schema.org, sitemap, robots.txt",
   "files": [
     "manifest.json",
     "index.php",
@@ -56,6 +56,11 @@
     "migrations/001_initial_schema.sql",
     "migrations/002_blog_table.sql",
     "migrations/003_urun_etiket_begeni.sql",
-    "migrations/004_siparis_kargo_entegrasyon.sql"
+    "migrations/004_siparis_kargo_entegrasyon.sql",
+    "includes/seo.php",
+    "sehir.php",
+    "ilce.php",
+    "sitemap.php",
+    "robots.txt"
   ]
 }

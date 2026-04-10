@@ -29,8 +29,17 @@ $benzerler = DB::all("
     ORDER BY RAND() LIMIT 4
 ", [$urun['kategori_id'], $urun['id']]);
 
-$pageTitle = $urun['baslik'];
-$pageDesc  = mb_substr(strip_tags($urun['aciklama']), 0, 155);
+require_once __DIR__ . '/includes/seo.php';
+
+SEO::title($urun['baslik'] . ' – PLA+ 3D Baskı');
+SEO::desc($pageDesc);
+SEO::canonical(SITE_URL . '/urun/' . $urun['slug']);
+SEO::addSchema(SEO::schemaProduct($urun));
+SEO::addSchema(SEO::schemaBreadcrumb([
+    ['Ana Sayfa', SITE_URL . '/'],
+    ['Ürünler',   SITE_URL . '/urunler.php'],
+    [$urun['baslik'], SITE_URL . '/urun/' . $urun['slug']],
+]));
 ?>
 
 <div style="margin-top:70px"></div>

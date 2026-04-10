@@ -3,17 +3,26 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/seo.php';
 
 $cartCount = sepetAdet();
 $siteName  = ayar('site_adi', SITE_NAME);
+
+// SEO varsayılan Organization şeması
+SEO::addSchema(SEO::schemaOrganization());
 ?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= isset($pageTitle) ? e($pageTitle) . ' – ' : '' ?><?= e($siteName) ?></title>
-<meta name="description" content="<?= e($pageDesc ?? '3D baskı ürünleri ve hizmetleri. Endüstriyel kalitede PLA, ABS, Reçine ve Metal materyallerle üretim.') ?>">
+<title><?= isset($pageTitle) ? e($pageTitle) . ' | ' . e($siteName) : e($siteName) . ' – PLA 3D Baskı Hizmeti, Konya' ?></title>
+<?php
+// Sayfa bazlı SEO setup
+if (isset($pageTitle) && !SEO::renderTitle()) {}  // boş
+if (isset($pageDesc))  SEO::desc($pageDesc);
+echo SEO::render();
+?>
 <link rel="icon" href="/assets/img/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

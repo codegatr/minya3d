@@ -9,18 +9,23 @@ ServerSignature Off
     # RewriteCond %{HTTPS} off
     # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # www yönlendirme
-    # RewriteCond %{HTTP_HOST} !^www\. [NC]
-    # RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # ── SEO: İl sayfaları ({il-slug}-3d-baski) ──────────────────────────
+    RewriteRule ^([a-z]+)-3d-baski/?$ sehir.php?sehir=$1 [L,QSA]
 
-    # Ürün detay: /urun/slug → urun.php?slug=slug
+    # ── SEO: Konya ilçe sayfaları (konya-{ilce}-3d-baski) ───────────────
+    RewriteRule ^konya-([a-z]+)-3d-baski/?$ ilce.php?sehir_ilce=konya-$1 [L,QSA]
+
+    # ── Ürün detay: /urun/slug ───────────────────────────────────────────
     RewriteRule ^urun/([a-z0-9-]+)/?$  urun.php?slug=$1 [L,QSA]
 
-    # Kategori: /kategori/slug → urunler.php?kat=slug
+    # ── Kategori: /kategori/slug ─────────────────────────────────────────
     RewriteRule ^kategori/([a-z0-9-]+)/?$ urunler.php?kat=$1 [L,QSA]
 
-    # Blog: /blog/slug
+    # ── Blog detay: /blog/slug ───────────────────────────────────────────
     RewriteRule ^blog/([a-z0-9-]+)/?$ blog-detay.php?slug=$1 [L,QSA]
+
+    # ── Sitemap ──────────────────────────────────────────────────────────
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
 </IfModule>
 
 # PHP ayarları (DirectAdmin shared hosting)
