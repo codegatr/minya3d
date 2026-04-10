@@ -132,6 +132,24 @@ date_default_timezone_set('Europe/Istanbul');
 mb_internal_encoding('UTF-8');
 PHP;
             file_put_contents($rootDir . '/config.php', $cfg);
+
+            // Migration takip tablosunu oluştur (mn_migrations)
+            $pdo->exec("CREATE TABLE IF NOT EXISTS `mn_migrations` (
+                `id`           INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                `dosya`        VARCHAR(200) NOT NULL UNIQUE,
+                `durum`        ENUM('ok','hata') DEFAULT 'ok',
+                `hata_mesaji`  TEXT,
+                `uygulandi_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+            // 001_initial_schema ve 002_blog_table zaten schema.sql'den uygulandı
+            // Bunları mn_migrations'a "uygulandı" olarak kaydet (tekrar çalışmasın)
+            $baseApplied = ['001_initial_schema.sql', '002_blog_table.sql'];
+            foreach ($baseApplied as $mf) {
+                $pdo->exec("INSERT IGNORE INTO mn_migrations (dosya, durum, uygulandi_at)
+                            VALUES ('$mf', 'ok', NOW())");
+            }
+
             // Session'a kaydet
             session_start();
             $_SESSION['installer'] = compact('dbHost','dbName','dbUser','dbPass','siteUrl');
@@ -221,12 +239,15 @@ if ($step === 4): ?>
 <span class="log-ok">✓ config.php yazıldı</span>
 <span class="log-ok">✓ Admin hesabı oluşturuldu</span>
 <span class="log-ok">✓ Başlangıç verileri yüklendi</span>
-<span class="log-info">ℹ Bambu Lab A1 Combo görseli için: /assets/img/bambu-a1-combo.webp dosyasını yükleyin</span>
+<span class="log-ok">✓ Migration takip tablosu oluşturuldu</span>
+<span class="log-info">ℹ Bambu Lab A1 Combo görseli: /assets/img/bambu-a1-combo.webp dosyasını yükleyin</span>
 <span class="log-info">ℹ Güvenlik için bu installer/ klasörünü silin veya erişimi engelleyin</span>
     </div>
     <div style="display:flex;flex-direction:column;gap:.75rem;margin-top:1rem">
       <a href="/admin/" class="btn btn-primary">Admin Panele Git →</a>
-      <a href="/" class="btn btn-blue">Siteyi Gör →</a>
+      <a href="/admin/migrations.php" class="btn btn-blue">Migrations Kontrol Et →</a>
+      <a href="/admin/urunler-seed.php" class="btn btn-blue">Ürün Kataloğunu Yükle (130 ürün) →</a>
+      <a href="/" class="btn btn-outline" style="text-align:center">Siteyi Gör →</a>
     </div>
     <hr class="divider">
     <div class="alert alert-err" style="font-size:.82rem">

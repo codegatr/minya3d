@@ -1,10 +1,10 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "feat: pageDesc tum sayfalara eklendi, turkiye-3d-baski, og-default, htaccess duzeltmesi",
+  "changelog": "fix: installer migration entegrasyonu, schema.sql guncel, adim4 linkler",
   "files": [
     "manifest.json",
     "index.php",
@@ -65,6 +65,8 @@
     "blog-detay.php",
     "turkiye-3d-baski.php",
     "arama.php",
-    "assets/img/og-default.jpg"
+    "assets/img/og-default.jpg",
+    "installer/index.php",
+    "installer/schema.sql"
   ]
 }
