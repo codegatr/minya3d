@@ -35,7 +35,9 @@ if (!empty($pageDesc))  SEO::desc($pageDesc);
   <div class="nav-container">
 
     <a href="/" class="nav-brand">
-      <img src="/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="nav-logo">
+      <div class="nav-logo-wrap">
+        <img src="/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="nav-logo">
+      </div>
     </a>
 
     <ul class="nav-links" id="navLinks">

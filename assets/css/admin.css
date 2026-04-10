@@ -1,12 +1,12 @@
-/* Minya 3D – Admin CSS v1.0 */
+/* Minya 3D – Admin CSS v1.0.14 */
 :root{
-  --navy:#020C1B;--navy2:#0A1628;--navy3:#0D1F35;
+  --navy:#0F172A;--navy2:#1E293B;--navy3:#293548;
   --blue:#0EA5E9;--blue2:#0284C7;
   --orange:#F97316;--purple:#8B5CF6;
   --green:#22C55E;--red:#EF4444;--amber:#F59E0B;
-  --text:#E2E8F0;--muted:#94A3B8;--faint:#475569;
-  --border:rgba(14,165,233,.18);--border2:rgba(14,165,233,.35);
-  --card:rgba(13,31,53,.9);--sidebar-w:240px;
+  --text:#F1F5F9;--muted:#CBD5E1;--faint:#64748B;
+  --border:rgba(148,163,184,.20);--border2:rgba(148,163,184,.38);
+  --card:rgba(30,41,59,.95);--sidebar-w:240px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -156,7 +156,7 @@ textarea.form-control{min-height:120px;resize:vertical}
 /* UPDATE PAGE */
 .update-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;max-width:700px}
 .version-tag{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:900;color:var(--blue)}
-.update-log{background:rgba(2,12,27,.8);border:1px solid var(--border);border-radius:10px;padding:1.25rem;font-family:monospace;font-size:.85rem;line-height:1.8;max-height:300px;overflow-y:auto;white-space:pre-wrap;color:var(--muted)}
+.update-log{background:rgba(15,23,42,.85);border:1px solid var(--border);border-radius:10px;padding:1.25rem;font-family:monospace;font-size:.85rem;line-height:1.8;max-height:300px;overflow-y:auto;white-space:pre-wrap;color:var(--muted)}
 .update-log .log-ok{color:var(--green)}.update-log .log-err{color:var(--red)}.update-log .log-info{color:var(--blue)}
 
 /* RESPONSIVE */

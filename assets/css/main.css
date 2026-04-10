@@ -1,12 +1,15 @@
 /* ============================================================
-   MİNYA 3D – Main CSS v1.0
-   Futuristik e-ticaret teması
+   MİNYA 3D – Main CSS v1.0.14
+   Modern koyu tema — okunabilir, kontraslı
    ============================================================ */
 
 :root{
-  --navy:    #020C1B;
-  --navy2:   #0A1628;
-  --navy3:   #0D1F35;
+  /* ─── Zemin ─── */
+  --navy:    #0F172A;   /* Önceki: #020C1B (çok koyu) */
+  --navy2:   #1E293B;   /* Önceki: #0A1628 */
+  --navy3:   #293548;   /* Önceki: #0D1F35 */
+
+  /* ─── Vurgu renkleri ─── */
   --blue:    #0EA5E9;
   --blue2:   #0284C7;
   --orange:  #F97316;
@@ -16,15 +19,21 @@
   --green:   #22C55E;
   --red:     #EF4444;
   --gold:    #FFB800;
-  --text:    #E2E8F0;
-  --muted:   #94A3B8;
-  --faint:   #475569;
-  --border:  rgba(14,165,233,0.18);
-  --border2: rgba(14,165,233,0.35);
-  --card:    rgba(13,31,53,0.85);
+
+  /* ─── Metin ─── */
+  --text:    #F1F5F9;   /* Önceki: #E2E8F0 — biraz daha parlak */
+  --muted:   #CBD5E1;   /* Önceki: #94A3B8 — daha görünür */
+  --faint:   #64748B;   /* Önceki: #475569 */
+
+  /* ─── Kenar / kart ─── */
+  --border:  rgba(148,163,184,0.20);   /* Nötr, mavi değil */
+  --border2: rgba(148,163,184,0.38);
+  --card:    rgba(30,41,59,0.95);       /* Önceki: rgba(13,31,53,0.85) */
+
+  /* ─── Layout ─── */
   --radius:  12px;
   --radius2: 16px;
-  --shadow:  0 8px 32px rgba(0,0,0,0.4);
+  --shadow:  0 4px 24px rgba(0,0,0,0.35);
 }
 
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
@@ -43,8 +52,8 @@ body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(14,165,233,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14,165,233,0.035) 1px, transparent 1px);
+    linear-gradient(rgba(148,163,184,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -64,19 +73,28 @@ h3 { font-size: 1.25rem; }
 /* ─── NAVBAR ─── */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(2,12,27,0.9);
+  background: rgba(15,23,42,0.92);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   transition: box-shadow .3s;
 }
-.navbar.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+.navbar.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
 .nav-container {
   max-width: 1400px; margin: 0 auto;
   padding: 0 2rem;
   display: flex; align-items: center; justify-content: space-between;
   height: 70px;
 }
-.nav-logo { height: 40px; filter: drop-shadow(0 0 6px rgba(14,165,233,.35)); }
+/* Logo: koyu zemin üzerinde görünmesi için beyaz arka plan pill */
+.nav-logo-wrap {
+  background: #fff;
+  border-radius: 8px;
+  padding: 5px 12px;
+  display: flex; align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-logo { height: 32px; display: block; }
 .nav-links {
   display: flex; gap: 1.75rem; align-items: center;
 }
@@ -227,7 +245,7 @@ h3 { font-size: 1.25rem; }
 .hero-visual { position: relative; }
 .printer-wrap {
   position: relative; border-radius: 24px;
-  background: rgba(13,31,53,.7);
+  background: rgba(30,41,59,.8);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   overflow: hidden;
@@ -265,7 +283,7 @@ h3 { font-size: 1.25rem; }
 .printer-corner.br { bottom:12px; right:12px; border-bottom:2px solid var(--blue); border-right:2px solid var(--blue); }
 .printer-status {
   position: absolute; bottom: 16px; left: 16px; right: 16px;
-  background: rgba(2,12,27,.85); border: 1px solid var(--border);
+  background: rgba(15,23,42,.92); border: 1px solid var(--border);
   border-radius: 10px; padding: .6rem 1rem;
   display: flex; align-items: center; gap: .75rem;
   font-size: .78rem; font-family: 'Orbitron', monospace;
@@ -275,7 +293,7 @@ h3 { font-size: 1.25rem; }
 
 /* ─── STATS BAR ─── */
 .stats-bar {
-  background: rgba(13,31,53,.8);
+  background: rgba(30,41,59,.85);
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   padding: 1.75rem 2rem; position: relative; z-index: 1;
 }
@@ -385,7 +403,7 @@ h3 { font-size: 1.25rem; }
 }
 .feature-card {
   padding: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius2);
-  background: rgba(2,12,27,.5); transition: all .3s;
+  background: rgba(15,23,42,.5); transition: all .3s;
 }
 .feature-card:hover { border-color: var(--border2); background: rgba(14,165,233,.03); }
 .feat-icon {
@@ -440,7 +458,7 @@ h3 { font-size: 1.25rem; }
 .form-label { display: block; font-size: .88rem; font-weight: 500; margin-bottom: .5rem; color: var(--muted); }
 .form-control {
   width: 100%; padding: .75rem 1rem; border-radius: var(--radius);
-  background: rgba(13,31,53,.8); border: 1px solid var(--border);
+  background: rgba(30,41,59,.85); border: 1px solid var(--border);
   color: var(--text); font-size: .95rem; font-family: inherit;
   transition: border-color .25s, box-shadow .25s;
   outline: none;
@@ -506,7 +524,7 @@ select.form-control { appearance: none; background-image: url("data:image/svg+xm
 .form-label { display: block; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: .45rem; letter-spacing: .02em; }
 .form-control {
   width: 100%; padding: .72rem 1rem; border-radius: var(--radius);
-  background: rgba(10,22,40,.85); border: 1px solid var(--border);
+  background: rgba(30,41,59,.9); border: 1px solid var(--border);
   color: var(--text); font-size: .95rem; font-family: inherit;
   transition: border-color .2s, box-shadow .2s; outline: none;
 }
@@ -526,7 +544,7 @@ textarea.form-control { min-height: 110px; resize: vertical; }
 }
 .mobile-filter-overlay {
   display: none; position: fixed; inset: 0; z-index: 500;
-  background: rgba(2,12,27,.85); backdrop-filter: blur(8px);
+  background: rgba(15,23,42,.92); backdrop-filter: blur(8px);
 }
 .mobile-filter-overlay.open { display: flex; align-items: flex-end; }
 .mobile-filter-inner {
@@ -542,7 +560,7 @@ textarea.form-control { min-height: 110px; resize: vertical; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
-  .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: rgba(2,12,27,.98); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; font-size: 1.1rem; }
+  .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.98); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; font-size: 1.1rem; }
   .nav-links.open { display: flex; }
   .nav-burger { display: flex; }
   .section { padding: 3.5rem 1.25rem; }
