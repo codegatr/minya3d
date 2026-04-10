@@ -1,10 +1,10 @@
 {
-  "version": "1.0.17",
+  "version": "1.0.18",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "fix: .htaccess Turkce karakter - Apache 500 hata koku neden",
+  "changelog": "fix: functions.php cift urunGorsel - Cannot redeclare fatal error",
   "files": [
     "manifest.json",
     "index.php",

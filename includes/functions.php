@@ -102,29 +102,7 @@ function csrfCheck(): bool {
     return isset($_POST['csrf']) && hash_equals($_SESSION['csrf'] ?? '', $_POST['csrf']);
 }
 
-function urunGorsel(array $urun, string $class = ''): string {
-    $src = $urun['gorsel']
-        ? UPLOAD_URL . 'urunler/' . e($urun['gorsel'])
-        : SITE_URL . '/assets/img/no-image.webp';
-    return '<img src="' . $src . '" alt="' . e($urun['baslik']) . '" class="' . $class . '" loading="lazy">';
-}
-
-function timeAgo(string $date): string {
-    $diff = time() - strtotime($date);
-    if ($diff < 60)     return $diff . ' saniye önce';
-    if ($diff < 3600)   return floor($diff/60) . ' dakika önce';
-    if ($diff < 86400)  return floor($diff/3600) . ' saat önce';
-    if ($diff < 604800) return floor($diff/86400) . ' gün önce';
-    return date('d.m.Y', strtotime($date));
-}
-
-function paginate(int $total, int $page, int $perPage = 12, string $url = ''): array {
-    $pages = (int)ceil($total / $perPage);
-    $offset = ($page - 1) * $perPage;
-    return compact('pages','offset','perPage','page');
-}
-
-// Ürün görsel URL'si — placeholder veya gerçek
+// Urun gorsel URL: placeholder veya gercek gorsel
 function urunGorsel(array $urun, string $size = 'full'): string {
     $g = $urun['gorsel'] ?? '';
     if (!$g) {
@@ -132,4 +110,19 @@ function urunGorsel(array $urun, string $size = 'full'): string {
         $g    = "placeholder-{$slug}.svg";
     }
     return UPLOAD_URL . 'urunler/' . $g;
+}
+
+function timeAgo(string $date): string {
+    $diff = time() - strtotime($date);
+    if ($diff < 60)     return $diff . ' saniye once';
+    if ($diff < 3600)   return floor($diff/60) . ' dakika once';
+    if ($diff < 86400)  return floor($diff/3600) . ' saat once';
+    if ($diff < 604800) return floor($diff/86400) . ' gun once';
+    return date('d.m.Y', strtotime($date));
+}
+
+function paginate(int $total, int $page, int $perPage = 12, string $url = ''): array {
+    $pages  = (int)ceil($total / $perPage);
+    $offset = ($page - 1) * $perPage;
+    return compact('pages','offset','perPage','page');
 }
