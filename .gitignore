@@ -1,0 +1,11 @@
+config.php
+backups/
+uploads/urunler/*
+uploads/kategoriler/*
+!uploads/urunler/.gitkeep
+!uploads/kategoriler/.gitkeep
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+vendor/

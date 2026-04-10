@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
+  <rect width="500" height="500" fill="#0A1628" rx="12"/>
+  <!-- Zemin -->
+  <rect x="80" y="380" width="340" height="18" rx="6" fill="#1E3A5F"/>
+  <rect x="80" y="380" width="340" height="5" rx="3" fill="#0EA5E9" opacity=".4"/>
+  <!-- Sol dikey çubuk -->
+  <rect x="90" y="60" width="14" height="324" rx="5" fill="#1E3A5F" stroke="#0EA5E9" stroke-width=".8" opacity=".8"/>
+  <!-- Sağ dikey çubuk -->
+  <rect x="396" y="60" width="14" height="324" rx="5" fill="#1E3A5F" stroke="#0EA5E9" stroke-width=".8" opacity=".8"/>
+  <!-- Üst yatay çubuk -->
+  <rect x="90" y="60" width="320" height="12" rx="4" fill="#0EA5E9" opacity=".6"/>
+  <!-- Alt yatay çubuk -->
+  <rect x="90" y="370" width="320" height="10" rx="4" fill="#0EA5E9" opacity=".25"/>
+  <!-- Y ekseni rod -->
+  <rect x="95" y="140" width="310" height="10" rx="4" fill="#142038"/>
+  <rect x="95" y="140" width="310" height="4" rx="2" fill="#0EA5E9" opacity=".5"/>
+  <!-- Print head gövde -->
+  <rect x="210" y="128" width="80" height="44" rx="8" fill="#0D2744" stroke="#0EA5E9" stroke-width="1.5" opacity=".9"/>
+  <circle cx="250" cy="150" r="8" fill="#F97316" opacity=".9"/>
+  <rect x="240" y="172" width="20" height="6" rx="3" fill="#0EA5E9" opacity=".7"/>
+  <!-- Nozzle -->
+  <polygon points="244,178 256,178 253,192 247,192" fill="#0EA5E9" opacity=".85"/>
+  <!-- Filament hattı -->
+  <path d="M250 192 Q247 230 251 270 Q254 310 250 380" stroke="#F97316" stroke-width="2" stroke-dasharray="5 4" opacity=".55" fill="none"/>
+  <!-- Baskı objesi -->
+  <rect x="170" y="300" width="160" height="80" rx="5" fill="#0A1E3A" stroke="#8B5CF6" stroke-width="1.2"/>
+  <rect x="176" y="368" width="148" height="7" rx="2" fill="#8B5CF6" opacity=".55"/>
+  <rect x="176" y="358" width="148" height="7" rx="2" fill="#8B5CF6" opacity=".42"/>
+  <rect x="176" y="348" width="148" height="7" rx="2" fill="#8B5CF6" opacity=".3"/>
+  <rect x="176" y="338" width="148" height="7" rx="2" fill="#8B5CF6" opacity=".2"/>
+  <rect x="176" y="328" width="148" height="7" rx="2" fill="#8B5CF6" opacity=".12"/>
+  <!-- AMS Lite solda -->
+  <rect x="30" y="180" width="52" height="160" rx="8" fill="#0D2744" stroke="#0EA5E9" stroke-width="1" opacity=".7"/>
+  <rect x="36" y="192" width="40" height="8" rx="3" fill="#0EA5E9" opacity=".4"/>
+  <rect x="36" y="206" width="40" height="8" rx="3" fill="#F97316" opacity=".4"/>
+  <rect x="36" y="220" width="40" height="8" rx="3" fill="#8B5CF6" opacity=".4"/>
+  <rect x="36" y="234" width="40" height="8" rx="3" fill="#22C55E" opacity=".4"/>
+  <text x="56" y="280" text-anchor="middle" font-family="'Orbitron',monospace" font-size="7" fill="#0EA5E9" opacity=".7">AMS</text>
+  <text x="56" y="290" text-anchor="middle" font-family="'Orbitron',monospace" font-size="7" fill="#0EA5E9" opacity=".7">LITE</text>
+  <!-- PTFE tube AMS → printer -->
+  <path d="M82 250 Q110 250 104 150" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity=".45"/>
+  <!-- Ekran -->
+  <rect x="396" y="200" width="0" height="0"/>
+  <rect x="112" y="350" width="50" height="30" rx="5" fill="#0D2744" stroke="#0EA5E9" stroke-width=".8"/>
+  <circle cx="127" cy="358" r="3" fill="#22C55E" opacity=".9"/>
+  <circle cx="127" cy="370" r="3" fill="#F97316" opacity=".7"/>
+  <circle cx="137" cy="364" r="3" fill="#0EA5E9" opacity=".5"/>
+  <!-- Köşe ışıkları -->
+  <circle cx="97" cy="67" r="6" fill="#0EA5E9" opacity=".5"/>
+  <circle cx="403" cy="67" r="6" fill="#0EA5E9" opacity=".5"/>
+  <circle cx="97" cy="374" r="5" fill="#0EA5E9" opacity=".3"/>
+  <circle cx="403" cy="374" r="5" fill="#0EA5E9" opacity=".3"/>
+  <!-- Alt durum yazısı -->
+  <text x="250" y="460" text-anchor="middle" font-family="'Orbitron',monospace" font-size="10" fill="#0EA5E9" opacity=".65">BAMBU LAB A1 COMBO</text>
+  <text x="250" y="478" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">4-RENK · AMS LITE · 256³mm</text>
+</svg>

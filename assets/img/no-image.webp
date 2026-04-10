@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#0D1F35"/>
+  <rect x="140" y="100" width="120" height="120" rx="8" fill="none" stroke="#0EA5E9" stroke-width="2" opacity=".4"/>
+  <line x1="140" y1="100" x2="260" y2="220" stroke="#0EA5E9" stroke-width="1.5" opacity=".3"/>
+  <line x1="260" y1="100" x2="140" y2="220" stroke="#0EA5E9" stroke-width="1.5" opacity=".3"/>
+  <text x="200" y="270" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#475569">Görsel Yok</text>
+</svg>
