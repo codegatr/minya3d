@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.2",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "İlk sürüm",
+  "changelog": "MakerWorld PLA ürün kataloğu (130 ürün, 12 kategori)",
   "files": [
     "manifest.json",
     "index.php",
@@ -49,6 +49,7 @@
     "admin/includes/header.php",
     "admin/includes/footer.php",
     "admin/includes/sidebar.php",
-    ".htaccess"
+    ".htaccess",
+    "admin/urunler-seed.php"
   ]
 }

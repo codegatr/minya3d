@@ -23,6 +23,8 @@ function navItem(string $href, string $icon, string $label, string $cur): string
       <div class="nav-group-label">Katalog</div>
       <ul>
         <?= navItem('/admin/urunler.php', '📦', 'Ürünler', $curPage) ?>
+        <?= navItem('/admin/urun-ekle.php', '➕', 'Ürün Ekle', $curPage) ?>
+        <?= navItem('/admin/urunler-seed.php', '🚀', 'Katalog Yükle', $curPage) ?>
         <?= navItem('/admin/kategoriler.php', '🗂️', 'Kategoriler', $curPage) ?>
         <?= navItem('/admin/materyaller.php', '🧪', 'Materyaller', $curPage) ?>
       </ul>
