@@ -8,21 +8,21 @@ require_once __DIR__ . '/seo.php';
 $cartCount = sepetAdet();
 $siteName  = ayar('site_adi', SITE_NAME);
 
-// SEO varsayılan Organization şeması
+// Organization schema her sayfada
 SEO::addSchema(SEO::schemaOrganization());
+
+// $pageTitle / $pageDesc değişkenleri varsa SEO'ya aktar
+// (sayfalar bu değişkenleri header'dan ÖNCE set eder)
+if (!empty($pageTitle)) SEO::title($pageTitle);
+if (!empty($pageDesc))  SEO::desc($pageDesc);
 ?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= isset($pageTitle) ? e($pageTitle) . ' | ' . e($siteName) : e($siteName) . ' – PLA 3D Baskı Hizmeti, Konya' ?></title>
-<?php
-// Sayfa bazlı SEO setup
-if (isset($pageTitle) && !SEO::renderTitle()) {}  // boş
-if (isset($pageDesc))  SEO::desc($pageDesc);
-echo SEO::render();
-?>
+<title><?= SEO::renderTitle() ?></title>
+<?= SEO::render() ?>
 <link rel="icon" href="/assets/img/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

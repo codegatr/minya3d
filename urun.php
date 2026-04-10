@@ -1,8 +1,13 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/seo.php';
 
-$slug = trim($_GET['slug'] ?? $_SERVER['REQUEST_URI'] ?? '');
-$slug = basename(parse_url($slug, PHP_URL_PATH));
+$slug = trim($_GET['slug'] ?? '');
+if (!$slug) {
+    $slug = basename(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
+}
 
 $urun = DB::row("
     SELECT u.*, k.baslik AS kat_baslik, k.slug AS kat_slug
@@ -12,34 +17,38 @@ $urun = DB::row("
 ", [$slug]);
 
 if (!$urun) {
-    http_response_code(404);
-    echo '<div class="container" style="padding:8rem 2rem;text-align:center"><h2>Ürün Bulunamadı</h2><a href="/urunler.php" class="btn btn-primary" style="margin-top:2rem">Ürünlere Dön</a></div>';
+    $pageTitle = 'Urun Bulunamadi';
+    require_once __DIR__ . '/includes/header.php';
+    echo '<div class="container" style="padding:8rem 2rem;text-align:center"><h2>Urun Bulunamadi</h2><a href="/urunler.php" class="btn btn-primary" style="margin-top:2rem">Urunlere Don</a></div>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
 
 $gorseller = $urun['gorseller'] ? json_decode($urun['gorseller'], true) : [];
-$anaGorsel  = $urun['gorsel'] ?: ($gorseller[0] ?? '');
+$anaGorsel = $urun['gorsel'] ?: ($gorseller[0] ?? '');
 
-// Benzer ürünler
+$pageTitle = $urun['baslik'] . ' - PLA+ 3D Baski';
+$pageDesc  = $urun['meta_desc']
+    ?: mb_substr(strip_tags($urun['aciklama'] ?? ''), 0, 155)
+    ?: $urun['baslik'] . ' - Minya 3D ile PLA+ 3D baski. Konya\'dan Turkiye\'ye hizli kargo.';
+
+SEO::canonical(SITE_URL . '/urun/' . $urun['slug']);
+SEO::addSchema(SEO::schemaProduct($urun));
+SEO::addSchema(SEO::schemaBreadcrumb([
+    ['Ana Sayfa',     SITE_URL . '/'],
+    ['Urunler',       SITE_URL . '/urunler.php'],
+    [$urun['baslik'], SITE_URL . '/urun/' . $urun['slug']],
+]));
+if ($anaGorsel) SEO::set(['og_image' => UPLOAD_URL . 'urunler/' . $anaGorsel]);
+
+require_once __DIR__ . '/includes/header.php';
+
 $benzerler = DB::all("
     SELECT id,baslik,slug,gorsel,fiyat,indirim_fiyat,materyal
     FROM mn_urunler
     WHERE kategori_id=? AND aktif=1 AND id!=?
     ORDER BY RAND() LIMIT 4
 ", [$urun['kategori_id'], $urun['id']]);
-
-require_once __DIR__ . '/includes/seo.php';
-
-SEO::title($urun['baslik'] . ' – PLA+ 3D Baskı');
-SEO::desc($pageDesc);
-SEO::canonical(SITE_URL . '/urun/' . $urun['slug']);
-SEO::addSchema(SEO::schemaProduct($urun));
-SEO::addSchema(SEO::schemaBreadcrumb([
-    ['Ana Sayfa', SITE_URL . '/'],
-    ['Ürünler',   SITE_URL . '/urunler.php'],
-    [$urun['baslik'], SITE_URL . '/urun/' . $urun['slug']],
-]));
 ?>
 
 <div style="margin-top:70px"></div>

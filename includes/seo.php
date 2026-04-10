@@ -184,8 +184,10 @@ class SEO {
 
     public static function renderTitle(): string {
         $siteName = ayar('site_adi', SITE_NAME);
-        if (self::$data['title']) return e(self::$data['title'] . ' | ' . $siteName);
-        return e($siteName . ' – PLA 3D Baskı Hizmeti');
+        if (!empty(self::$data['title'])) {
+            return e(self::$data['title'] . ' | ' . $siteName);
+        }
+        return e($siteName . ' – PLA+ 3D Baskı Hizmeti, Konya');
     }
 
     // ── Schema üreticiler ────────────────────────────────────────────────────

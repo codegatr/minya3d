@@ -1,29 +1,33 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/seo.php';
 
-// URL: /konya-3d-baski veya ?sehir=konya
-$slug = trim($_GET['sehir'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
-$slug = preg_replace('/-3d-baski.*$/', '', $slug); // suffix'i soy
+// URL: /{il-slug}-3d-baski → sehir.php?sehir={il-slug}
+$slug = trim($_GET['sehir'] ?? '');
+if (!$slug) {
+    $uri  = $_SERVER['REQUEST_URI'] ?? '/';
+    $slug = preg_replace('/-3d-baski.*$/', '', ltrim(parse_url($uri, PHP_URL_PATH), '/'));
+}
 
 $iller = seo_iller();
 if (!isset($iller[$slug])) {
-    http_response_code(404);
+    $pageTitle = 'Sayfa Bulunamadı';
+    require_once __DIR__ . '/includes/header.php';
     echo '<div class="container" style="padding:8rem 2rem;text-align:center"><h2>Sayfa Bulunamadı</h2><a href="/" class="btn btn-primary" style="margin-top:2rem">Ana Sayfaya Dön</a></div>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
 
-$il     = $iller[$slug];
-$ilAdi  = $il['ad'];
-$isKonya = $slug === 'konya';
+$il      = $iller[$slug];
+$ilAdi   = $il['ad'];
+$isKonya = ($slug === 'konya');
 
-// SEO ayarla
+// SEO — header include edilmeden ÖNCE
 $pageTitle = "$ilAdi 3D Baskı Hizmeti – PLA+ Baskı, Hızlı Kargo";
 $pageDesc  = "Minya 3D ile $ilAdi'da 3D baskı hizmeti. Bambu Lab A1 Combo, PLA+ materyal. Ev, ofis, endüstriyel parça, dekorasyon. Sipariş ver, $ilAdi'ya kargo.";
 
-SEO::title($pageTitle);
-SEO::desc($pageDesc);
 SEO::canonical(SITE_URL . "/$slug-3d-baski");
 SEO::addSchema(SEO::schemaLocalBusiness($ilAdi));
 SEO::addSchema(SEO::schemaBreadcrumb([
@@ -32,14 +36,16 @@ SEO::addSchema(SEO::schemaBreadcrumb([
 ]));
 SEO::addSchema(SEO::schemaFAQ([
     ["$ilAdi'da 3D baskı hizmeti var mı?",
-     "Evet, Minya 3D olarak $ilAdi'ya 3D baskı siparişi alıyoruz. Siparişiniz Konya'da Bambu Lab A1 Combo ile üretilip kargo ile $ilAdi adresinize teslim edilir."],
+     "Evet. Minya 3D olarak $ilAdi'ya 3D baskı siparişi alıyoruz. Konya'daki atölyemizden Bambu Lab A1 Combo ile PLA+ üretim yapıp kargo ile gönderiyoruz."],
     ['Teslimat süresi ne kadar?',
-     'Standart siparişlerde 48-72 saat üretim + 1-3 iş günü kargo ile kapınıza teslim edilir.'],
+     '48-72 saat üretim + 1-3 iş günü kargo ile kapınıza teslim edilir.'],
     ['Hangi materyaller kullanılıyor?',
-     'Şu an PLA+ materyal ile üretim yapıyoruz. Dayanıklı, çevre dostu ve geniş renk yelpazesiyle her projeye uygun.'],
+     'Şu an PLA+ materyal ile üretim yapıyoruz. Dayanıklı, çevre dostu, geniş renk yelpazesi.'],
     ['Özel tasarım sipariş edebilir miyim?',
      "Evet. STL, OBJ veya 3MF dosyanızı gönderin; $ilAdi'ya özel baskı siparişi alıyoruz."],
 ]));
+
+require_once __DIR__ . '/includes/header.php';
 
 // İlçe listesi (sadece Konya için)
 $ilceler = $isKonya ? seo_konya_ilceleri() : [];

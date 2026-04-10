@@ -1,10 +1,10 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "fix: Migration motoru UTF-8 Türkçe karakter hatası giderildi",
+  "changelog": "fix: SEO siralama, blog-detay.php, urun.php, sitemap, installer migration",
   "files": [
     "manifest.json",
     "index.php",
@@ -61,6 +61,7 @@
     "sehir.php",
     "ilce.php",
     "sitemap.php",
-    "robots.txt"
+    "robots.txt",
+    "blog-detay.php"
   ]
 }

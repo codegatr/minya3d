@@ -29,9 +29,9 @@ foreach ($statik as [$loc,$pr,$ch,$lm]) {
 }
 
 // ── Kategoriler ───────────────────────────────────────────────────────────────
-$kats = DB::all("SELECT slug, updated_at FROM mn_kategoriler WHERE aktif=1");
+$kats = DB::all("SELECT slug FROM mn_kategoriler WHERE aktif=1");
 foreach ($kats as $k) {
-    $urls[] = ['loc'=>"/kategori/{$k['slug']}",'pr'=>'0.8','ch'=>'weekly','lm'=>substr($k['updated_at']??$today,0,10)];
+    $urls[] = ['loc'=>"/kategori/{$k['slug']}",'pr'=>'0.8','ch'=>'weekly','lm'=>$today];
 }
 
 // ── Ürünler ───────────────────────────────────────────────────────────────────

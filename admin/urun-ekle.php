@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {
         if (!$err) {
             $data = compact('baslik','aciklama','fiyat','indirim_fiyat','stok','kat_id','materyal','boyut','vitrin','aktif','sira','gorsel','whatsapp_msg');
             $data['indirim_fiyat'] = $indirim;
+            $data['indirim_fiyat'] = $indirim;
             $data['slug']          = $sl;
             $data['kategori_id']   = $kat_id ?: null;
 

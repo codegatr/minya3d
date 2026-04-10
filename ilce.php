@@ -1,11 +1,15 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/seo.php';
 
-// URL: /konya-meram-3d-baski → sehir=konya, ilce=meram
-$uri    = trim($_GET['sehir_ilce'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
-$uri    = preg_replace('/-3d-baski.*$/', '', $uri);
-// konya-meram
+// URL: /konya-{ilce}-3d-baski → ilce.php?sehir_ilce=konya-{ilce}
+$uri     = trim($_GET['sehir_ilce'] ?? '');
+if (!$uri) {
+    $path = ltrim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+    $uri  = preg_replace('/-3d-baski.*$/', '', $path);
+}
 $parts  = explode('-', $uri, 2);
 $sehirS = $parts[0] ?? '';
 $ilceS  = $parts[1] ?? '';
@@ -14,17 +18,19 @@ $iller   = seo_iller();
 $ilceler = seo_konya_ilceleri();
 
 if ($sehirS !== 'konya' || !in_array($ilceS, $ilceler) || !isset($iller[$sehirS])) {
-    http_response_code(404);
+    $pageTitle = 'Sayfa Bulunamadı';
+    require_once __DIR__ . '/includes/header.php';
     echo '<div class="container" style="padding:8rem 2rem;text-align:center"><h2>Sayfa Bulunamadı</h2><a href="/" class="btn btn-primary" style="margin-top:2rem">Ana Sayfaya Dön</a></div>';
-    require_once __DIR__ . '/includes/footer.php'; exit;
+    require_once __DIR__ . '/includes/footer.php';
+    exit;
 }
 
-$ilceAd  = seo_konya_ilce_adi($ilceS);
-$pageTitle = "Konya $ilceAd 3D Baskı Hizmeti – PLA+";
-$pageDesc  = "Konya $ilceAd'da 3D baskı hizmeti. Minya 3D ile PLA+ baskı, hızlı üretim ve Konya içi kargo. Ev, ofis, prototip siparişi alınır.";
+$ilceAd = seo_konya_ilce_adi($ilceS);
 
-SEO::title($pageTitle);
-SEO::desc($pageDesc);
+// SEO — header include edilmeden ÖNCE
+$pageTitle = "Konya $ilceAd 3D Baskı Hizmeti – PLA+";
+$pageDesc  = "Konya $ilceAd bölgesinde 3D baskı hizmeti. Minya 3D ile PLA+ baskı, hızlı üretim, Konya içi kargo. Ev, ofis, prototip siparişi alınır.";
+
 SEO::canonical(SITE_URL . "/konya-$ilceS-3d-baski");
 SEO::addSchema(SEO::schemaLocalBusiness('Konya', $ilceAd));
 SEO::addSchema(SEO::schemaBreadcrumb([
@@ -34,10 +40,12 @@ SEO::addSchema(SEO::schemaBreadcrumb([
 ]));
 SEO::addSchema(SEO::schemaFAQ([
     ["Konya $ilceAd'da 3D baskı hizmeti var mı?",
-     "Evet, Minya 3D olarak Konya $ilceAd bölgesine 3D baskı hizmeti sunuyoruz. Siparişiniz hazırlanıp Konya içi kargo veya elden teslim seçeneğiyle size ulaştırılır."],
+     "Evet. Minya 3D olarak Konya $ilceAd bölgesine 3D baskı hizmeti sunuyoruz. PLA+ materyal ile üretim yapıp Konya içi kargo veya elden teslim seçeneği mevcuttur."],
     ['Teslimat süresi ne kadar?',
-     "Konya içi siparişlerde genellikle 24-48 saat üretim ve aynı gün veya ertesi gün $ilceAd adresinize teslim."],
+     "Konya içi siparişlerde 24-48 saat üretim, $ilceAd adresinize ertesi gün teslim mümkündür."],
 ]));
+
+require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div style="margin-top:70px"></div>

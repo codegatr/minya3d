@@ -1,12 +1,16 @@
 <?php
-$pageTitle = 'Geleceği 3D ile Üretiyoruz';
-$pageDesc  = 'Minya 3D: Bambu Lab A1 Combo ile PLA+ 3D baskı hizmeti. Konya merkezli, Türkiye\'ye hızlı kargo. Ev, ofis, endüstriyel parça, dekorasyon.';
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/seo.php';
 
-SEO::title('PLA 3D Baskı Hizmeti – Bambu Lab A1 Combo – Konya');
-SEO::desc($pageDesc);
+$pageTitle = 'PLA 3D Baskı Hizmeti – Bambu Lab A1 Combo – Konya';
+$pageDesc  = 'Minya 3D: Bambu Lab A1 Combo ile PLA+ 3D baskı hizmeti. Konya merkezli, Türkiye\'ye hızlı kargo. Ev, ofis, endüstriyel parça, dekorasyon.';
+
+SEO::canonical(SITE_URL . '/');
 SEO::addSchema(SEO::schemaLocalBusiness('Konya'));
+
+require_once __DIR__ . '/includes/header.php';
 
 // Öne çıkan kategoriler
 $kategoriler = DB::all("SELECT * FROM mn_kategoriler WHERE aktif=1 ORDER BY sira ASC LIMIT 6");
