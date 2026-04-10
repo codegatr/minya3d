@@ -106,7 +106,7 @@ require_once __DIR__ . '/includes/header.php';
       foreach ($urunler as $u): ?>
       <div class="product-card">
         <a href="/urun/<?= e($u['slug']) ?>" class="product-thumb" style="display:block">
-          <?php if ($u['gorsel']): ?><img src="<?= UPLOAD_URL ?>urunler/<?= e($u['gorsel']) ?>" alt="<?= e($u['baslik']) ?>"><?php else: ?><span class="product-thumb-placeholder">📦</span><?php endif; ?>
+          <img src="<?= urunGorsel($u) ?>" alt="<?= e($u['baslik']) ?>" loading="lazy">
         </a>
         <div class="product-body">
           <span class="product-material">PLA+</span>

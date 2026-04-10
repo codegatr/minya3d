@@ -26,6 +26,9 @@ if (!$urun) {
 
 $gorseller = $urun['gorseller'] ? json_decode($urun['gorseller'], true) : [];
 $anaGorsel = $urun['gorsel'] ?: ($gorseller[0] ?? '');
+$anaGorselUrl = $anaGorsel
+    ? UPLOAD_URL . 'urunler/' . $anaGorsel
+    : urunGorsel($urun);
 
 $pageTitle = $urun['baslik'] . ' - PLA+ 3D Baski';
 $pageDesc  = $urun['meta_desc']
@@ -68,7 +71,7 @@ $benzerler = DB::all("
     <div class="urun-gallery">
       <div class="urun-main-img">
         <img id="mainImg"
-          src="<?= $anaGorsel ? UPLOAD_URL.'urunler/'.e($anaGorsel) : SITE_URL.'/assets/img/no-image.webp' ?>"
+          src="<?= e($anaGorselUrl) ?>"
           alt="<?= e($urun['baslik']) ?>">
       </div>
       <?php if (!empty($gorseller)): ?>

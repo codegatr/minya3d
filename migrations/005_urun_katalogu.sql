@@ -151,3 +151,9 @@ INSERT IGNORE INTO `mn_urunler` (`baslik`,`slug`,`aciklama`,`fiyat`,`indirim_fiy
 INSERT IGNORE INTO `mn_urunler` (`baslik`,`slug`,`aciklama`,`fiyat`,`indirim_fiyat`,`stok`,`materyal`,`boyut`,`kategori_id`,`vitrin`,`aktif`,`created_at`) VALUES ('Geometrik Kupe Kalip Seti','geometrik-kupe-kalip-seti','UV recine kupe dokum kaliplarilari, 12 farkli form. Kendi kupelerinizi uretmek icin.',350,0,25,'PLA+','256x256x256mm maks.',(SELECT id FROM mn_kategoriler WHERE slug='taki-aksesuar' LIMIT 1),0,1,NOW());
 INSERT IGNORE INTO `mn_urunler` (`baslik`,`slug`,`aciklama`,`fiyat`,`indirim_fiyat`,`stok`,`materyal`,`boyut`,`kategori_id`,`vitrin`,`aktif`,`created_at`) VALUES ('Antrenman Bilekligi Saatlik Tutucu','antrenman-bilekligi-saatlik-tutucu','Duvara monte, fitness tracker ve sporcu saatini sarj ederken duzenli tutar.',170,0,22,'PLA+','256x256x256mm maks.',(SELECT id FROM mn_kategoriler WHERE slug='spor-outdoor' LIMIT 1),0,1,NOW());
 INSERT IGNORE INTO `mn_urunler` (`baslik`,`slug`,`aciklama`,`fiyat`,`indirim_fiyat`,`stok`,`materyal`,`boyut`,`kategori_id`,`vitrin`,`aktif`,`created_at`) VALUES ('Cocuk Adi Plakasi Kisisel','cocuk-adi-plakasi-kisisel','Siparis sirasinda cocugun adini belirtin, kapi veya oda plakasi. 25cm boy.',280,0,11,'PLA+','256x256x256mm maks.',(SELECT id FROM mn_kategoriler WHERE slug='cocuk-oyuncak' LIMIT 1),0,1,NOW());
+
+-- Urunlere kategori bazli placeholder gorsel ata (gorsel bos olanlara)
+UPDATE `mn_urunler` u
+JOIN `mn_kategoriler` k ON k.id = u.kategori_id
+SET u.gorsel = CONCAT('placeholder-', k.slug, '.svg')
+WHERE u.gorsel IS NULL OR u.gorsel = '';

@@ -43,7 +43,7 @@ $pages    = (int)ceil($total / $perPage);
 // LIMIT ve OFFSET integer olarak SQL'e gömülür (PDO bind ile LIMIT sorunu yaşanmaması için)
 $limitSql = "LIMIT " . (int)$perPage . " OFFSET " . (int)$offset;
 $urunler  = DB::all(
-    "SELECT u.*, k.baslik AS kat_baslik FROM mn_urunler u
+    "SELECT u.*, k.baslik AS kat_baslik, k.slug AS kat_slug FROM mn_urunler u
      LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id
      WHERE $whereStr ORDER BY $sort $limitSql",
     $params
@@ -144,11 +144,7 @@ $pageTitle = (!empty($kat) ? $kat['baslik'].' – ' : '') . 'Ürünler';
         <?php foreach ($urunler as $u): ?>
         <div class="product-card">
           <a href="/urun/<?= e($u['slug']) ?>" class="product-thumb" style="display:block">
-            <?php if ($u['gorsel']): ?>
-            <img src="<?= UPLOAD_URL ?>urunler/<?= e($u['gorsel']) ?>" alt="<?= e($u['baslik']) ?>">
-            <?php else: ?>
-            <span class="product-thumb-placeholder">📦</span>
-            <?php endif; ?>
+            <img src="<?= urunGorsel($u) ?>" alt="<?= e($u['baslik']) ?>" loading="lazy">
             <div class="product-badge-wrap">
               <?php if ($u['vitrin']): ?><span class="pbadge pbadge-new">VİTRİN</span><?php endif; ?>
               <?php if ($u['indirim_fiyat'] > 0): ?>

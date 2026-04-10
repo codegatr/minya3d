@@ -123,3 +123,13 @@ function paginate(int $total, int $page, int $perPage = 12, string $url = ''): a
     $offset = ($page - 1) * $perPage;
     return compact('pages','offset','perPage','page');
 }
+
+// Ürün görsel URL'si — placeholder veya gerçek
+function urunGorsel(array $urun, string $size = 'full'): string {
+    $g = $urun['gorsel'] ?? '';
+    if (!$g) {
+        $slug = $urun['kat_slug'] ?? 'ev-yasam';
+        $g    = "placeholder-{$slug}.svg";
+    }
+    return UPLOAD_URL . 'urunler/' . $g;
+}

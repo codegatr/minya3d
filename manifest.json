@@ -1,5 +1,5 @@
 {
-  "version": "1.0.13",
+  "version": "1.0.14",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
@@ -70,6 +70,18 @@
     "installer/schema.sql",
     "404.php",
     "config.php",
-    "migrations/005_urun_katalogu.sql"
+    "migrations/005_urun_katalogu.sql",
+    "assets/img/placeholder/ev-yasam.svg",
+    "assets/img/placeholder/ofis-masa.svg",
+    "assets/img/placeholder/dekorasyon-sanat.svg",
+    "assets/img/placeholder/oyun-hobi.svg",
+    "assets/img/placeholder/egitim-bilim.svg",
+    "assets/img/placeholder/teknoloji-elektronik.svg",
+    "assets/img/placeholder/el-aleti-atolye.svg",
+    "assets/img/placeholder/taki-aksesuar.svg",
+    "assets/img/placeholder/bahce-doga.svg",
+    "assets/img/placeholder/spor-outdoor.svg",
+    "assets/img/placeholder/cocuk-oyuncak.svg",
+    "assets/img/placeholder/arac-ici.svg"
   ]
 }
