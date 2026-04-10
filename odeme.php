@@ -84,6 +84,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {
             DB::q("UPDATE mn_urunler SET stok = GREATEST(stok - ?, 0) WHERE id=?", [$u['adet'], $u['id']]);
         }
 
+        // ── Müşteriye onay emaili ──────────────────────────────────────
+        $urunListesi = implode("\n", array_map(
+            fn($u) => "  - {$u['baslik']} x{$u['adet']} = " . para($u['toplam']),
+            $urunler
+        ));
+        $musteriMail = "Merhaba $adSoyad,\n\n"
+            . "#{$sId} numaralı siparişiniz başarıyla alınmıştır.\n\n"
+            . "SİPARİŞ DETAYI\n" . str_repeat('-', 30) . "\n"
+            . $urunListesi . "\n"
+            . str_repeat('-', 30) . "\n"
+            . "Kargo : " . ($kargo > 0 ? para($kargo) : 'Ücretsiz') . "\n"
+            . "TOPLAM: " . para($genelToplam) . "\n\n"
+            . "Teslimat Adresi:\n$adres, $ilce / $sehir\n\n"
+            . "Siparişiniz en kısa sürede hazırlanacaktır.\n"
+            . "Sorularınız için: " . ayar('email', SITE_EMAIL) . "\n\n"
+            . "İyi günler,\n" . ayar('site_adi', SITE_NAME);
+        @mail($email,
+            "Siparişiniz Alındı #$sId – " . ayar('site_adi', SITE_NAME),
+            $musteriMail,
+            "From: " . ayar('email', SITE_EMAIL) . "\r\nContent-Type: text/plain; charset=UTF-8\r\n"
+        );
+
+        // ── Admine bildirim ───────────────────────────────────────────
+        $adminEmail = ayar('email', SITE_EMAIL);
+        $adminMail  = "Yeni Sipariş #$sId\n\n"
+            . "Müşteri: $adSoyad ($email)\n"
+            . "Toplam : " . para($genelToplam) . "\n"
+            . "Adres  : $adres, $ilce / $sehir\n\n"
+            . $urunListesi . "\n\n"
+            . "Admin: " . SITE_URL . "/admin/siparis-detay.php?id=$sId";
+        @mail($adminEmail,
+            "Yeni Sipariş #$sId – " . para($genelToplam),
+            $adminMail,
+            "From: $adminEmail\r\nContent-Type: text/plain; charset=UTF-8\r\n"
+        );
+
         // Sepeti temizle
         unset($_SESSION['sepet']);
 
