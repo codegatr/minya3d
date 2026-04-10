@@ -12,7 +12,15 @@ function slug(string $s): string {
     return $s;
 }
 
-function para(float $f, string $symbol = '₺'): string {
+function para(float $f, ?string $symbol = null): string {
+    if ($symbol === null) {
+        static $currency = null;
+        if ($currency === null) {
+            try { $currency = ayar('para_birimi', '₺'); }
+            catch (Throwable) { $currency = '₺'; }
+        }
+        $symbol = $currency;
+    }
     return $symbol . number_format($f, 2, ',', '.');
 }
 

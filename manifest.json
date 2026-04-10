@@ -1,10 +1,10 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "fix: installer migration entegrasyonu, schema.sql guncel, adim4 linkler",
+  "changelog": "fix: 404, noindex, para(), mobile filtre, config v1.0.10, ayarlar config sync",
   "files": [
     "manifest.json",
     "index.php",
@@ -67,6 +67,8 @@
     "arama.php",
     "assets/img/og-default.jpg",
     "installer/index.php",
-    "installer/schema.sql"
+    "installer/schema.sql",
+    "404.php",
+    "config.php"
   ]
 }

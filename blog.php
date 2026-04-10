@@ -1,6 +1,22 @@
 <?php
-$pageTitle = 'Blog';
-$pageDesc  = '3D baski materyal rehberleri, PLA+ ipuclari, Bambu Lab kullanim kilavuzlari ve sektor haberleri.';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/seo.php';
+
+$pageTitle = 'Blog – 3D Baskı Rehberleri ve Haberler';
+$pageDesc  = '3D baskı materyal rehberleri, PLA+ ipuçları, Bambu Lab kullanım kılavuzları, sektör haberleri ve proje ilham kaynakları. Minya 3D blogu.';
+
+SEO::canonical(SITE_URL . '/blog.php');
+SEO::addSchema([
+    '@context' => 'https://schema.org',
+    '@type'    => 'Blog',
+    'name'     => 'Minya 3D Blog',
+    'url'      => SITE_URL . '/blog.php',
+    'description' => $pageDesc,
+    'publisher' => ['@type' => 'Organization', 'name' => 'Minya 3D'],
+]);
+
 require_once __DIR__ . '/includes/header.php';
 
 // Blog tablosu henüz oluşturulmamış olabilir, güvenli kontrol

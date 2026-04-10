@@ -1,6 +1,13 @@
 <?php
-$pageTitle = 'Ürünler';
-$pageDesc  = 'Minya 3D urun katalogu: Ev, ofis, dekorasyon, oyun, egitim. PLA+ materyal, Bambu Lab A1 Combo kalitesi. Turkiye hizli kargo.';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/seo.php';
+
+$pageTitle = '3D Baskı Ürünleri – PLA+ Çeşitleri';
+$pageDesc  = 'Minya 3D ürün kataloğu: Ev, ofis, dekorasyon, oyun, eğitim. PLA+ materyal, Bambu Lab A1 Combo kalitesi. Türkiye\'ye hızlı kargo.';
+SEO::canonical(SITE_URL . '/urunler.php');
+
 require_once __DIR__ . '/includes/header.php';
 
 $page    = max(1, (int)($_GET['sayfa'] ?? 1));
@@ -52,9 +59,38 @@ $pageTitle = (!empty($kat) ? $kat['baslik'].' – ' : '') . 'Ürünler';
     <span class="current">Ürünler</span>
   </div>
 
+  <!-- Mobil filtre butonu -->
+  <div class="mobile-filter-bar">
+    <button onclick="document.getElementById('mobileFilter').classList.toggle('open')" class="btn btn-outline btn-sm">
+      ☰ Filtrele
+    </button>
+    <span style="font-size:.85rem;color:var(--muted)"><?= $total ?> ürün</span>
+  </div>
+
+  <!-- Mobil filtre overlay -->
+  <div id="mobileFilter" class="mobile-filter-overlay">
+    <div class="mobile-filter-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+        <h3 style="font-size:1rem;font-weight:700">Filtrele</h3>
+        <button onclick="document.getElementById('mobileFilter').classList.remove('open')" style="color:var(--muted);font-size:1.4rem;background:none;border:none;cursor:pointer">✕</button>
+      </div>
+      <h4 style="font-size:.8rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem">Kategoriler</h4>
+      <ul style="list-style:none">
+        <li style="margin-bottom:.4rem"><a href="/urunler.php" style="color:<?= empty($_GET['kat']) ? 'var(--blue)' : 'var(--muted)' ?>">Tümü (<?= $total ?>)</a></li>
+        <?php foreach ($kategoriler as $k): ?>
+        <li style="margin-bottom:.4rem">
+          <a href="/urunler.php?kat=<?= e($k['slug']) ?>" style="color:<?= ($_GET['kat'] ?? '') === $k['slug'] ? 'var(--blue)' : 'var(--muted)' ?>">
+            <?= e($k['baslik']) ?>
+          </a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+
   <div style="display:grid;grid-template-columns:240px 1fr;gap:2.5rem;align-items:start">
 
-    <!-- FİLTRE PANEL -->
+    <!-- FİLTRE PANEL (desktop) -->
     <aside class="filter-panel">
       <div class="filter-box">
         <h4>Kategoriler</h4>

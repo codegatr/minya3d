@@ -1,9 +1,17 @@
 <?php
-$q         = trim($_GET['q'] ?? '');
-$pageTitle = $q ? "\"$q\" – Arama Sonuçları" : 'Ürün Arama';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/seo.php';
+
+$q = trim($_GET['q'] ?? '');
+$pageTitle = $q ? "\"" . e($q) . "\" – Arama Sonuçları" : 'Ürün Arama';
 $pageDesc  = $q
     ? "\"$q\" için Minya 3D 3D baskı ürünleri arama sonuçları. PLA+ materyal, Bambu Lab A1 Combo kalitesi."
-    : 'Minya 3D ürün kataloğunda arama yapın. 130+ PLA+ 3D baskı ürünü arasında ihtiyacınızı bulun.';require_once __DIR__ . '/includes/header.php';
+    : 'Minya 3D ürün kataloğunda arama yapın. 130+ PLA+ 3D baskı ürünü arasında ihtiyacınızı bulun.';
+
+// Arama sonuç sayfaları index'lenmemeli
+if ($q) SEO::noindex();require_once __DIR__ . '/includes/header.php';
 
 $urunler = [];
 $total   = 0;

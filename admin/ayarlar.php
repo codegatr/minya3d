@@ -17,9 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrfCheck()) {
         $yeni = uploadFile($_FILES['logo'], UPLOAD_DIR, ['svg','png','webp','jpg']);
         if ($yeni) {
             DB::q("INSERT INTO mn_ayarlar(anahtar,deger) VALUES('logo',?) ON DUPLICATE KEY UPDATE deger=?", [$yeni,$yeni]);
-            // assets/img/logo.svg üzerine kopyala
             copy(UPLOAD_DIR . $yeni, __DIR__ . '/../assets/img/logo.svg');
         }
+    }
+    // Site URL ve adını config.php'ye yansıt (SITE_NAME, SITE_EMAIL)
+    $cfgPath = dirname(__DIR__) . '/config.php';
+    if (file_exists($cfgPath)) {
+        $cfg = file_get_contents($cfgPath);
+        $siteAdi   = DB::row("SELECT deger FROM mn_ayarlar WHERE anahtar='site_adi'")['deger'] ?? 'Minya 3D';
+        $siteEmail = DB::row("SELECT deger FROM mn_ayarlar WHERE anahtar='email'")['deger'] ?? SITE_EMAIL;
+        $cfg = preg_replace("/define\('SITE_NAME',\s*'[^']+'\)/", "define('SITE_NAME', '$siteAdi')", $cfg);
+        $cfg = preg_replace("/define\('SITE_EMAIL',\s*'[^']+'\)/", "define('SITE_EMAIL', '$siteEmail')", $cfg);
+        file_put_contents($cfgPath, $cfg);
     }
     flash('ok', 'Ayarlar kaydedildi.');
     redirect('/admin/ayarlar.php');

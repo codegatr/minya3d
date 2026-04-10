@@ -1,6 +1,9 @@
 Options -Indexes
 ServerSignature Off
 
+# 404 handler
+ErrorDocument 404 /404.php
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
