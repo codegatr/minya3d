@@ -1,7 +1,7 @@
 -- Migration: 001_initial_schema
--- Açıklama : Minya 3D temel tablo yapısı
--- Tarih    : 2025-04-10
--- Bağımlılık: (yok)
+-- Description: Minya 3D base tables
+-- Date: 2025-04-10
+-- Requires: (none)
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `mn_kategoriler` (
   `id`     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `baslik` VARCHAR(120) NOT NULL,
   `slug`   VARCHAR(140) NOT NULL UNIQUE,
-  `ikon`   VARCHAR(20)  DEFAULT '📦',
+  `ikon`   VARCHAR(20)  DEFAULT '?',
   `sira`   SMALLINT UNSIGNED DEFAULT 0,
   `aktif`  TINYINT(1) DEFAULT 1
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `mn_urunler` (
   `created_at`    DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at`    DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`kategori_id`) REFERENCES `mn_kategoriler`(`id`) ON DELETE SET NULL,
-  INDEX idx_slug  (`slug`),
-  INDEX idx_aktif (`aktif`),
-  INDEX idx_vitrin(`vitrin`)
+  INDEX idx_slug   (`slug`),
+  INDEX idx_aktif  (`aktif`),
+  INDEX idx_vitrin (`vitrin`)
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mn_musteriler` (
@@ -108,15 +108,13 @@ CREATE TABLE IF NOT EXISTS `mn_ayarlar` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- Başlangıç ayarları
 INSERT IGNORE INTO `mn_ayarlar` (`anahtar`, `deger`) VALUES
-  ('site_adi',    'Minya 3D'),
-  ('site_slogan', 'Geleceği 3D ile Üretiyoruz'),
-  ('email',       'info@minya3d.com'),
-  ('para_birimi', '₺'),
-  ('kargo_ucreti','0'),
-  ('min_ucretsiz_kargo','0');
+  ('site_adi',             'Minya 3D'),
+  ('site_slogan',          'Gecelegi 3D ile Uretiyoruz'),
+  ('email',                'info@minya3d.com'),
+  ('para_birimi',          'TL'),
+  ('kargo_ucreti',         '0'),
+  ('min_ucretsiz_kargo',   '0');
 
--- Başlangıç materyali
 INSERT IGNORE INTO `mn_materyaller` (`baslik`, `renk`, `aktif`) VALUES
   ('PLA+', '#0EA5E9', 1);

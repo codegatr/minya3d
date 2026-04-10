@@ -1,10 +1,10 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "SEO: şehir/ilçe landing, schema.org, sitemap, robots.txt",
+  "changelog": "fix: Migration motoru UTF-8 Türkçe karakter hatası giderildi",
   "files": [
     "manifest.json",
     "index.php",

@@ -65,15 +65,36 @@ class Migration {
 
         try {
             $pdo = DB::get();
-            // Çoklu statement çalıştır (PDO::MYSQL_ATTR_EMULATE_PREPARES gerekli)
+            // emulate_prepares: multi-statement exec için gerekli
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+            $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 
-            // Satır satır SQL ifadelerini ayır
             $statements = self::splitSql($sql);
-            foreach ($statements as $stmt) {
-                $stmt = trim($stmt);
-                if ($stmt) $pdo->exec($stmt);
+
+            if (empty($statements)) {
+                $log[] = ['ok', "Boş/yorum-only dosya: $file"];
+                return ['ok' => true, 'msg' => "Atlandı (içerik yok): $file"];
             }
+
+            foreach ($statements as $i => $stmt) {
+                $stmt = trim($stmt);
+                if (!$stmt) continue;
+                try {
+                    $pdo->exec($stmt);
+                } catch (PDOException $stmtEx) {
+                    // "Duplicate key name" = index zaten var → uyarı ver, devam et
+                    $code = $stmtEx->getCode();
+                    $msg  = $stmtEx->getMessage();
+                    if (str_contains($msg, 'Duplicate key name') ||
+                        str_contains($msg, 'already exists') ||
+                        $code == '42S01' || $code == '42S21') {
+                        // Zaten var, atla
+                        continue;
+                    }
+                    throw $stmtEx; // gerçek hata → yukarıya fırlat
+                }
+            }
+
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
             // Takip tablosuna ekle / güncelle
@@ -115,39 +136,117 @@ class Migration {
     }
 
     /**
-     * SQL dosyasını birden fazla statement'a böl
-     * Delimiter değişimlerini ve yorumları handle eder.
+     * SQL dosyasını birden fazla statement'a böl.
+     * Türkçe/unicode yorum satırlarını satır bazlı temizler (regex byte-offset sorunu yok).
+     * String parse için mb_str_split kullanır (multi-byte güvenli).
      */
     private static function splitSql(string $sql): array {
-        // -- ve # yorumlarını temizle
-        $sql = preg_replace('/--[^\n]*\n/', "\n", $sql);
-        $sql = preg_replace('/#[^\n]*\n/', "\n", $sql);
-        // /* */ yorumlarını temizle
-        $sql = preg_replace('/\/\*.*?\*\//s', '', $sql);
-        // Noktalı virgülle böl ama string içindekileri koru
+        // ── 1) Satır bazlı yorum temizleme (regex yerine — Türkçe karakter güvenli) ──
+        $lines   = explode("\n", str_replace("\r\n", "\n", $sql));
+        $cleaned = [];
+        $inBlock = false;   // /* */ blok yorum içinde mi?
+
+        foreach ($lines as $line) {
+            // /* ... */ blok başlangıcı
+            if (!$inBlock && str_contains($line, '/*')) {
+                $before = substr($line, 0, strpos($line, '/*'));
+                if (str_contains($line, '*/')) {
+                    // Tek satırda açılıp kapanıyor
+                    $after = substr($line, strrpos($line, '*/') + 2);
+                    $line  = $before . $after;
+                } else {
+                    $inBlock = true;
+                    $line    = $before;
+                }
+            } elseif ($inBlock) {
+                if (str_contains($line, '*/')) {
+                    $inBlock = false;
+                    $line    = substr($line, strpos($line, '*/') + 2);
+                } else {
+                    continue; // blok yorum içi satır → atla
+                }
+            }
+
+            // -- ve # tek satır yorumlarını temizle
+            $trimmed = ltrim($line);
+            if (str_starts_with($trimmed, '--') || str_starts_with($trimmed, '#')) {
+                continue;
+            }
+
+            // Satır içi inline -- yorumu (string dışındaysa)
+            if (str_contains($line, '--')) {
+                $line = self::stripInlineComment($line);
+            }
+
+            $cleaned[] = $line;
+        }
+
+        $sql = implode("\n", $cleaned);
+
+        // ── 2) Statement bölme (mb_str_split ile multi-byte güvenli) ──
         $stmts  = [];
         $buf    = '';
         $inStr  = false;
         $strChr = '';
-        $len    = strlen($sql);
-        for ($i = 0; $i < $len; $i++) {
-            $c = $sql[$i];
-            if (!$inStr && ($c === "'" || $c === '"')) {
-                $inStr = true; $strChr = $c;
-            } elseif ($inStr && $c === $strChr && ($i === 0 || $sql[$i-1] !== '\\')) {
-                $inStr = false;
-            }
-            if (!$inStr && $c === ';') {
-                $buf = trim($buf);
-                if ($buf) $stmts[] = $buf;
-                $buf = '';
+        $chars  = mb_str_split($sql, 1, 'UTF-8'); // UTF-8 karakter dizisi
+
+        foreach ($chars as $idx => $c) {
+            if (!$inStr) {
+                if ($c === "'" || $c === '"' || $c === '`') {
+                    $inStr  = true;
+                    $strChr = $c;
+                    $buf   .= $c;
+                } elseif ($c === ';') {
+                    $stmt = trim($buf);
+                    if ($stmt !== '') $stmts[] = $stmt;
+                    $buf = '';
+                } else {
+                    $buf .= $c;
+                }
             } else {
                 $buf .= $c;
+                if ($c === $strChr) {
+                    // Escape kontrol: bir önceki karakter backslash mı?
+                    $prev = $idx > 0 ? $chars[$idx - 1] : '';
+                    if ($prev !== '\\') {
+                        $inStr = false;
+                    }
+                }
             }
         }
-        $buf = trim($buf);
-        if ($buf) $stmts[] = $buf;
+
+        $last = trim($buf);
+        if ($last !== '') $stmts[] = $last;
+
         return $stmts;
+    }
+
+    /** Satır içi -- yorumunu sil (string dışındaysa) */
+    private static function stripInlineComment(string $line): string {
+        $out    = '';
+        $inStr  = false;
+        $strChr = '';
+        $chars  = mb_str_split($line, 1, 'UTF-8');
+        $len    = count($chars);
+
+        for ($i = 0; $i < $len; $i++) {
+            $c = $chars[$i];
+            if (!$inStr) {
+                if ($c === "'" || $c === '"' || $c === '`') {
+                    $inStr = true; $strChr = $c; $out .= $c;
+                } elseif ($c === '-' && isset($chars[$i+1]) && $chars[$i+1] === '-') {
+                    break; // Satırın geri kalanı yorum, dur
+                } else {
+                    $out .= $c;
+                }
+            } else {
+                $out .= $c;
+                if ($c === $strChr && ($i === 0 || $chars[$i-1] !== '\\')) {
+                    $inStr = false;
+                }
+            }
+        }
+        return $out;
     }
 
     /** Belirli bir migration'ın durumunu döndürür */

@@ -1,7 +1,7 @@
 -- Migration: 002_blog_table
--- Açıklama : Blog yazıları tablosu
--- Tarih    : 2025-04-10
--- Bağımlılık: 001_initial_schema
+-- Description: Blog posts table
+-- Date: 2025-04-10
+-- Requires: 001_initial_schema
 
 CREATE TABLE IF NOT EXISTS `mn_blog` (
   `id`         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
