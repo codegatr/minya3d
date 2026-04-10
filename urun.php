@@ -47,9 +47,11 @@ if ($anaGorsel) SEO::set(['og_image' => UPLOAD_URL . 'urunler/' . $anaGorsel]);
 require_once __DIR__ . '/includes/header.php';
 
 $benzerler = DB::all("
-    SELECT id,baslik,slug,gorsel,fiyat,indirim_fiyat,materyal
-    FROM mn_urunler
-    WHERE kategori_id=? AND aktif=1 AND id!=?
+    SELECT u.id, u.baslik, u.slug, u.gorsel, u.fiyat, u.indirim_fiyat, u.materyal,
+           k.slug AS kat_slug
+    FROM mn_urunler u
+    LEFT JOIN mn_kategoriler k ON k.id = u.kategori_id
+    WHERE u.kategori_id=? AND u.aktif=1 AND u.id!=?
     ORDER BY RAND() LIMIT 4
 ", [$urun['kategori_id'], $urun['id']]);
 ?>
@@ -152,11 +154,7 @@ $benzerler = DB::all("
       <?php foreach ($benzerler as $b): ?>
       <div class="product-card">
         <a href="/urun/<?= e($b['slug']) ?>" class="product-thumb" style="display:block">
-          <?php if ($b['gorsel']): ?>
-          <img src="<?= UPLOAD_URL ?>urunler/<?= e($b['gorsel']) ?>" alt="<?= e($b['baslik']) ?>">
-          <?php else: ?>
-          <span class="product-thumb-placeholder">📦</span>
-          <?php endif; ?>
+          <img src="<?= urunGorsel($b) ?>" alt="<?= e($b['baslik']) ?>" loading="lazy">
         </a>
         <div class="product-body">
           <span class="product-material"><?= e($b['materyal']) ?></span>

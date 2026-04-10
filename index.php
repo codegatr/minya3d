@@ -17,7 +17,7 @@ $kategoriler = DB::all("SELECT * FROM mn_kategoriler WHERE aktif=1 ORDER BY sira
 
 // Öne çıkan ürünler
 $vitrinUrünler = DB::all("
-  SELECT u.*, k.baslik AS kat_baslik
+  SELECT u.*, k.baslik AS kat_baslik, k.slug AS kat_slug
   FROM mn_urunler u
   LEFT JOIN mn_kategoriler k ON k.id = u.kategori_id
   WHERE u.aktif=1 AND u.vitrin=1
@@ -179,11 +179,7 @@ $stats = [
       <?php foreach ($vitrinUrünler as $u): ?>
       <div class="product-card reveal">
         <div class="product-thumb">
-          <?php if ($u['gorsel']): ?>
-          <img src="<?= UPLOAD_URL ?>urunler/<?= e($u['gorsel']) ?>" alt="<?= e($u['baslik']) ?>">
-          <?php else: ?>
-          <span class="product-thumb-placeholder">📦</span>
-          <?php endif; ?>
+          <img src="<?= urunGorsel($u) ?>" alt="<?= e($u['baslik']) ?>" loading="lazy">
           <div class="product-badge-wrap">
             <?php if ($u['vitrin']): ?><span class="pbadge pbadge-new">VİTRİN</span><?php endif; ?>
             <?php if ($u['indirim_fiyat'] > 0): ?><span class="pbadge pbadge-sale">İNDİRİM</span><?php endif; ?>

@@ -1,15 +1,15 @@
 /* ============================================================
-   MİNYA 3D – Main CSS v1.0.14
-   Modern koyu tema — okunabilir, kontraslı
+   MINYA 3D - Main CSS v1.0.14
+   Modern dark theme
    ============================================================ */
 
 :root{
-  /* ─── Zemin ─── */
-  --navy:    #0F172A;   /* Önceki: #020C1B (çok koyu) */
-  --navy2:   #1E293B;   /* Önceki: #0A1628 */
-  --navy3:   #293548;   /* Önceki: #0D1F35 */
+  
+  --navy:    #0F172A;   
+  --navy2:   #1E293B;   
+  --navy3:   #293548;   
 
-  /* ─── Vurgu renkleri ─── */
+  
   --blue:    #0EA5E9;
   --blue2:   #0284C7;
   --orange:  #F97316;
@@ -20,17 +20,17 @@
   --red:     #EF4444;
   --gold:    #FFB800;
 
-  /* ─── Metin ─── */
-  --text:    #F1F5F9;   /* Önceki: #E2E8F0 — biraz daha parlak */
-  --muted:   #CBD5E1;   /* Önceki: #94A3B8 — daha görünür */
-  --faint:   #64748B;   /* Önceki: #475569 */
+  
+  --text:    #F1F5F9;   
+  --muted:   #CBD5E1;   
+  --faint:   #64748B;   
 
-  /* ─── Kenar / kart ─── */
-  --border:  rgba(148,163,184,0.20);   /* Nötr, mavi değil */
+  
+  --border:  rgba(148,163,184,0.20);   
   --border2: rgba(148,163,184,0.38);
-  --card:    rgba(30,41,59,0.95);       /* Önceki: rgba(13,31,53,0.85) */
+  --card:    rgba(30,41,59,0.95);       
 
-  /* ─── Layout ─── */
+  
   --radius:  12px;
   --radius2: 16px;
   --shadow:  0 4px 24px rgba(0,0,0,0.35);
@@ -63,14 +63,14 @@ ul { list-style: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 input, select, textarea { font-family: inherit; }
 
-/* ─── TYPOGRAPHY ─── */
+
 .font-orb { font-family: 'Orbitron', sans-serif; }
 h1,h2,h3,h4,h5 { line-height: 1.2; font-weight: 700; }
 h1 { font-size: clamp(2rem,4.5vw,3.8rem); }
 h2 { font-size: clamp(1.6rem,3vw,2.6rem); }
 h3 { font-size: 1.25rem; }
 
-/* ─── NAVBAR ─── */
+
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   background: rgba(15,23,42,0.92);
@@ -86,7 +86,7 @@ h3 { font-size: 1.25rem; }
   display: flex; align-items: center; justify-content: space-between;
   height: 70px;
 }
-/* Logo: koyu zemin üzerinde görünmesi için beyaz arka plan pill */
+/* Logo: white bg pill for visibility */
 .nav-logo-wrap {
   background: #fff;
   border-radius: 8px;
@@ -131,7 +131,7 @@ h3 { font-size: 1.25rem; }
   background: var(--muted); border-radius: 2px; transition: all .3s;
 }
 
-/* ─── BUTTONS ─── */
+
 .btn {
   display: inline-flex; align-items: center; gap: .5rem;
   padding: .75rem 1.75rem; border-radius: var(--radius);
@@ -158,7 +158,7 @@ h3 { font-size: 1.25rem; }
 .btn-sm { padding: .5rem 1.2rem; font-size: .85rem; }
 .btn-full { width: 100%; justify-content: center; }
 
-/* ─── SECTION ─── */
+
 .section { padding: 5rem 2rem; position: relative; z-index: 1; }
 .container { max-width: 1400px; margin: 0 auto; }
 .section-tag {
@@ -179,7 +179,7 @@ h3 { font-size: 1.25rem; }
   margin-bottom: 2.5rem;
 }
 
-/* ─── HERO ─── */
+
 .hero {
   min-height: 100vh; display: flex; align-items: center;
   padding: 120px 2rem 80px;
@@ -291,7 +291,7 @@ h3 { font-size: 1.25rem; }
 }
 .status-dot { width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite; }
 
-/* ─── STATS BAR ─── */
+
 .stats-bar {
   background: rgba(30,41,59,.85);
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -310,7 +310,7 @@ h3 { font-size: 1.25rem; }
 .stat-num.p { color: var(--purple); }
 .stat-label { font-size: .78rem; color: var(--muted); letter-spacing: .08em; display: block; }
 
-/* ─── CATEGORY CARDS ─── */
+
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -341,7 +341,7 @@ h3 { font-size: 1.25rem; }
 .cat-card-title { font-weight: 600; font-size: .95rem; margin-bottom: .3rem; }
 .cat-card-count { color: var(--muted); font-size: .82rem; }
 
-/* ─── PRODUCT CARDS ─── */
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -397,7 +397,7 @@ h3 { font-size: 1.25rem; }
 .add-to-cart:hover { box-shadow: 0 0 28px rgba(14,165,233,.6); transform: scale(1.1); }
 .add-to-cart.added { background: linear-gradient(135deg, var(--green), #16a34a); }
 
-/* ─── FEATURE CARDS ─── */
+
 .features-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.75rem;
 }
@@ -418,7 +418,7 @@ h3 { font-size: 1.25rem; }
 .feature-card h3 { font-weight: 600; font-size: 1.05rem; margin-bottom: .6rem; }
 .feature-card p { color: var(--muted); font-size: .9rem; line-height: 1.75; }
 
-/* ─── PROCESS STEPS ─── */
+
 .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 1.5rem; }
 .process-step { text-align: center; padding: 2rem 1.25rem; position: relative; }
 .step-number {
@@ -436,14 +436,14 @@ h3 { font-size: 1.25rem; }
 .process-step h3 { font-weight: 600; margin-bottom: .5rem; }
 .process-step p { color: var(--muted); font-size: .9rem; line-height: 1.65; }
 
-/* ─── BREADCRUMB ─── */
+
 .breadcrumb { display: flex; align-items: center; gap: .5rem; padding: 1.25rem 0; font-size: .88rem; }
 .breadcrumb a { color: var(--muted); transition: color .2s; }
 .breadcrumb a:hover { color: var(--blue); }
 .breadcrumb span { color: var(--faint); }
 .breadcrumb .current { color: var(--text); }
 
-/* ─── PAGINATION ─── */
+
 .pagination { display: flex; justify-content: center; gap: .5rem; margin-top: 3rem; }
 .page-btn {
   width: 38px; height: 38px; border-radius: 8px;
@@ -453,7 +453,7 @@ h3 { font-size: 1.25rem; }
 }
 .page-btn:hover, .page-btn.active { border-color: var(--blue); color: var(--blue); background: rgba(14,165,233,.08); }
 
-/* ─── FORM ELEMENTS ─── */
+
 .form-group { margin-bottom: 1.25rem; }
 .form-label { display: block; font-size: .88rem; font-weight: 500; margin-bottom: .5rem; color: var(--muted); }
 .form-control {
@@ -467,13 +467,13 @@ h3 { font-size: 1.25rem; }
 .form-control::placeholder { color: var(--faint); }
 select.form-control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
 
-/* ─── ALERT ─── */
+
 .alert { padding: .85rem 1.25rem; border-radius: var(--radius); margin-bottom: 1.25rem; font-size: .92rem; border: 1px solid; }
 .alert-success { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.3); color: #4ade80; }
 .alert-error   { background: rgba(239,68,68,.1); border-color: rgba(239,68,68,.3); color: #f87171; }
 .alert-info    { background: rgba(14,165,233,.1); border-color: rgba(14,165,233,.3); color: #38bdf8; }
 
-/* ─── CART ─── */
+
 .cart-table { width: 100%; border-collapse: collapse; }
 .cart-table th { text-align: left; padding: .75rem 1rem; font-size: .82rem; letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--border); }
 .cart-table td { padding: 1rem; border-bottom: 1px solid rgba(14,165,233,.08); vertical-align: middle; }
@@ -482,7 +482,7 @@ select.form-control { appearance: none; background-image: url("data:image/svg+xm
 .qty-btn:hover { border-color: var(--blue); color: var(--blue); }
 .qty-val { min-width: 2rem; text-align: center; font-weight: 600; }
 
-/* ─── FOOTER ─── */
+
 .site-footer {
   background: var(--navy2);
   border-top: 1px solid var(--border);
@@ -519,7 +519,7 @@ select.form-control { appearance: none; background-image: url("data:image/svg+xm
 }
 .footer-socials a:hover { border-color: var(--blue); color: var(--blue); }
 
-/* ─── FORMS (public) ─── */
+
 .form-group { margin-bottom: 1.1rem; }
 .form-label { display: block; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: .45rem; letter-spacing: .02em; }
 .form-control {
@@ -537,7 +537,7 @@ textarea.form-control { min-height: 110px; resize: vertical; }
 .form-check { display: flex; align-items: center; gap: .6rem; cursor: pointer; font-size: .9rem; }
 .form-check input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--blue); }
 
-/* ─── MOBILE FİLTRE ─── */
+
 .mobile-filter-bar {
   display: none; align-items: center; justify-content: space-between;
   margin-bottom: 1rem;
@@ -553,7 +553,7 @@ textarea.form-control { min-height: 110px; resize: vertical; }
   max-height: 75vh; overflow-y: auto;
 }
 
-/* ─── RESPONSIVE ─── */
+
 @media (max-width: 1100px) {
   .hero-container { grid-template-columns: 1fr; gap: 3rem; }
   .hero-visual { max-width: 480px; margin: 0 auto; }

@@ -27,7 +27,7 @@ SEO::addSchema(SEO::schemaFAQ([
 require_once __DIR__ . '/includes/header.php';
 
 $iller = seo_iller();
-$vitrin = DB::all("SELECT u.*, k.baslik AS kat FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 AND u.vitrin=1 LIMIT 4");
+$vitrin = DB::all("SELECT u.*, k.baslik AS kat, k.slug AS kat_slug FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 AND u.vitrin=1 LIMIT 4");
 ?>
 
 <div style="margin-top:70px"></div>

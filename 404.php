@@ -12,7 +12,7 @@ SEO::noindex();
 require_once __DIR__ . '/includes/header.php';
 
 // Popüler ürünler
-$popular = DB::all("SELECT id,baslik,slug,gorsel,fiyat FROM mn_urunler WHERE aktif=1 AND vitrin=1 LIMIT 4");
+$popular = DB::all("SELECT u.id, u.baslik, u.slug, u.gorsel, u.fiyat, k.slug AS kat_slug FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 AND u.vitrin=1 LIMIT 4");
 ?>
 
 <div style="margin-top:70px;min-height:70vh;display:flex;align-items:center;justify-content:center;padding:4rem 2rem;position:relative;z-index:1">
@@ -53,13 +53,9 @@ $popular = DB::all("SELECT id,baslik,slug,gorsel,fiyat FROM mn_urunler WHERE akt
                   padding:.75rem;text-align:center;transition:all .2s;display:block"
            onmouseover="this.style.borderColor='var(--blue)'"
            onmouseout="this.style.borderColor='var(--border)'">
-          <?php if ($u['gorsel']): ?>
-          <img src="<?= UPLOAD_URL ?>urunler/<?= e($u['gorsel']) ?>"
+          <img src="<?= urunGorsel($u) ?>"
                alt="<?= e($u['baslik']) ?>"
                style="width:60px;height:60px;object-fit:cover;border-radius:8px;margin:0 auto .5rem;display:block">
-          <?php else: ?>
-          <div style="font-size:2rem;margin-bottom:.5rem">📦</div>
-          <?php endif; ?>
           <div style="font-size:.78rem;font-weight:600;line-height:1.3;margin-bottom:.3rem">
             <?= e(mb_substr($u['baslik'], 0, 30)) ?>
           </div>

@@ -19,7 +19,7 @@ if ($q !== '') {
     $like    = "%$q%";
     $total   = (int)DB::row("SELECT COUNT(*) AS c FROM mn_urunler WHERE aktif=1 AND (baslik LIKE ? OR aciklama LIKE ? OR materyal LIKE ?)", [$like,$like,$like])['c'];
     $urunler = DB::all(
-        "SELECT u.*, k.baslik AS kat FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 AND (u.baslik LIKE ? OR u.aciklama LIKE ? OR u.materyal LIKE ?) ORDER BY u.vitrin DESC, u.id DESC LIMIT 24",
+        "SELECT u.*, k.baslik AS kat, k.slug AS kat_slug FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 AND (u.baslik LIKE ? OR u.aciklama LIKE ? OR u.materyal LIKE ?) ORDER BY u.vitrin DESC, u.id DESC LIMIT 24",
         [$like,$like,$like]
     );
 }
@@ -55,8 +55,7 @@ if ($q !== '') {
         <?php foreach ($urunler as $u): ?>
         <div class="product-card">
           <a href="/urun/<?= e($u['slug']) ?>" class="product-thumb" style="display:block">
-            <?php if ($u['gorsel']): ?><img src="<?= UPLOAD_URL ?>urunler/<?= e($u['gorsel']) ?>" alt="<?= e($u['baslik']) ?>">
-            <?php else: ?><span class="product-thumb-placeholder">📦</span><?php endif; ?>
+            <img src="<?= urunGorsel($u) ?>" alt="<?= e($u['baslik']) ?>" loading="lazy">
           </a>
           <div class="product-body">
             <span class="product-material"><?= e($u['materyal'] ?: $u['kat']) ?></span>

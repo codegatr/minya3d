@@ -102,7 +102,7 @@ require_once __DIR__ . '/includes/header.php';
     </h2>
     <div class="products-grid">
       <?php
-      $urunler = DB::all("SELECT u.*,k.baslik AS kat FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 LIMIT 8");
+      $urunler = DB::all("SELECT u.*, k.baslik AS kat, k.slug AS kat_slug FROM mn_urunler u LEFT JOIN mn_kategoriler k ON k.id=u.kategori_id WHERE u.aktif=1 LIMIT 8");
       foreach ($urunler as $u): ?>
       <div class="product-card">
         <a href="/urun/<?= e($u['slug']) ?>" class="product-thumb" style="display:block">
