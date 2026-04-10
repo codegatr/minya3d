@@ -48,9 +48,10 @@ function navItem(string $href, string $icon, string $label, string $cur): string
     <div class="nav-group">
       <div class="nav-group-label">Sistem</div>
       <ul>
-        <?= navItem('/admin/ayarlar.php', '⚙️', 'Ayarlar', $curPage) ?>
-        <?= navItem('/admin/guncelle.php', '🔄', 'Güncelleme', $curPage) ?>
-        <?= navItem('/admin/yedek.php', '💾', 'Yedekleme', $curPage) ?>
+        <?= navItem('/admin/ayarlar.php',    '⚙️', 'Ayarlar',    $curPage) ?>
+        <?= navItem('/admin/migrations.php', '🗄️', 'Migrations', $curPage) ?>
+        <?= navItem('/admin/guncelle.php',   '🔄', 'Güncelleme', $curPage) ?>
+        <?= navItem('/admin/yedek.php',      '💾', 'Yedekleme',  $curPage) ?>
       </ul>
     </div>
   </nav>

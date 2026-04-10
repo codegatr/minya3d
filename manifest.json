@@ -1,10 +1,10 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "release_date": "2025-04-10",
   "project": "minya3d",
   "repo": "codegatr/minya3d",
   "min_php": "8.3",
-  "changelog": "Güncelleme motoru tamamen yeniden yazıldı: cURL, ZipArchive direkt extract, Tanı Modu",
+  "changelog": "Migration sistemi eklendi",
   "files": [
     "manifest.json",
     "index.php",
@@ -50,6 +50,12 @@
     "admin/includes/footer.php",
     "admin/includes/sidebar.php",
     ".htaccess",
-    "admin/urunler-seed.php"
+    "admin/urunler-seed.php",
+    "includes/migration.php",
+    "admin/migrations.php",
+    "migrations/001_initial_schema.sql",
+    "migrations/002_blog_table.sql",
+    "migrations/003_urun_etiket_begeni.sql",
+    "migrations/004_siparis_kargo_entegrasyon.sql"
   ]
 }

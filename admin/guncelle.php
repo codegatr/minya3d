@@ -175,6 +175,20 @@ function mn_update(string $zipUrl, string $tag): array {
         $log[] = ['ok', "APP_VERSION → $newVer"];
     }
 
+    // ── Bekleyen migration'ları otomatik çalıştır ──────────────────────────
+    $migFile = ROOT_DIR . '/includes/migration.php';
+    if (file_exists($migFile)) {
+        require_once $migFile;
+        $migResults = Migration::run();
+        if (empty($migResults)) {
+            $log[] = ['info', 'Migration: bekleyen yok'];
+        } else {
+            foreach ($migResults as $mr) {
+                $log[] = [$mr['ok'] ? 'ok' : 'err', 'Migration: ' . $mr['msg']];
+            }
+        }
+    }
+
     return $log;
 }
 
