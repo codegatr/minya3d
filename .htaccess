@@ -68,7 +68,8 @@ ServerSignature Off
     ExpiresByType application/javascript "access plus 1 week"
 </IfModule>
 
-# Backups klasörüne erişim yok
+# Backups ve tmp klasörüne erişim yok
 <IfModule mod_rewrite.c>
     RewriteRule ^backups/ - [F,L]
+    RewriteRule ^tmp/ - [F,L]
 </IfModule>
