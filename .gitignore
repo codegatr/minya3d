@@ -1,4 +1,5 @@
 config.php
+config.local.php
 backups/
 uploads/urunler/*
 uploads/kategoriler/*

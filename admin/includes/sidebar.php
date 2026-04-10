@@ -37,6 +37,13 @@ function navItem(string $href, string $icon, string $label, string $cur): string
     </div>
 
     <div class="nav-group">
+      <div class="nav-group-label">İçerik</div>
+      <ul>
+        <?= navItem('/admin/blog.php', '✍️', 'Blog', $curPage) ?>
+      </ul>
+    </div>
+
+    <div class="nav-group">
       <div class="nav-group-label">Sistem</div>
       <ul>
         <?= navItem('/admin/ayarlar.php', '⚙️', 'Ayarlar', $curPage) ?>

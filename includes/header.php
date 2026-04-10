@@ -39,6 +39,9 @@ $siteName  = ayar('site_adi', SITE_NAME);
     </ul>
 
     <div class="nav-actions">
+      <a href="/arama.php" class="nav-cart" aria-label="Arama" style="color:var(--muted)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
       <a href="/sepet.php" class="nav-cart" aria-label="Sepet">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
